@@ -10,18 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Bewertung {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rezession_id")
-	@JsonManagedReference(value = "rezession-bewertung")
+	@JsonBackReference(value = "rezession-bewertung")
 	private Rezession rezession;
 	
 	private int essen;

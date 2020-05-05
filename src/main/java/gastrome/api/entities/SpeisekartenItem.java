@@ -9,12 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SpeisekartenItem {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	private String name;

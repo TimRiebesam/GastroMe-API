@@ -1,5 +1,6 @@
 package gastrome.api.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,31 +15,36 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Getraenk extends SpeisekartenItem{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "speisekarteId")
+	@JoinColumn(name = "speisekarte_id")
 	@JsonBackReference(value = "speisekarte-getraenke")
 	private Speisekarte speisekarte;
 	
-	@ManyToMany(cascade = {
-	        CascadeType.PERSIST,
-	        CascadeType.MERGE,
-	    })
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+            })
 	@JoinTable(name = "getraenk_allergen",
 	        joinColumns = @JoinColumn(name = "getraenk_id"),
 	        inverseJoinColumns = @JoinColumn(name = "allergene_id")
 	    )
 	@JsonManagedReference(value = "getraenke-allergene")
-	private List<Allergen> allergene;
+	private List<Allergen> allergene = new ArrayList<Allergen>();
 
 	public Getraenk() {
 		
@@ -60,8 +66,8 @@ public class Getraenk extends SpeisekartenItem{
 		return allergene;
 	}
 
-	public void setAllergene(List<Allergen> allergene) {
-		this.allergene = allergene;
+	public void addAllergen(Allergen allergen) {
+		this.allergene.add(allergen);
 	}
 
 	public UUID getId() {

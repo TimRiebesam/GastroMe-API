@@ -1,5 +1,6 @@
 package gastrome.api.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,13 +14,18 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Restaurant {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	private String name;
@@ -38,7 +44,7 @@ public class Restaurant {
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "restaurant-rezessionen")
-	private List<Rezession> rezessionen;
+	private List<Rezession> rezessionen = new ArrayList<Rezession>();
 	
 	@OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
@@ -53,7 +59,7 @@ public class Restaurant {
 	public Restaurant() {
 		
 	}
-
+	
 	public String getName() {
 		return name;
 	}

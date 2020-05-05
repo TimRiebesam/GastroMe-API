@@ -1,5 +1,6 @@
 package gastrome.api.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,14 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Speisekarte {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	@OneToOne(fetch = FetchType.LAZY)
@@ -34,7 +40,7 @@ public class Speisekarte {
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "speisekarte-speisen")
-	private List<Speise> speisen;
+	private List<Speise> speisen = new ArrayList<Speise>();
 	
 	@OneToMany(
 			mappedBy = "speisekarte",
@@ -42,6 +48,38 @@ public class Speisekarte {
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "speisekarte-getraenke")
-	private List<Getraenk> getraenke;
+	private List<Getraenk> getraenke = new ArrayList<Getraenk>();
+
+	public Speisekarte() {
+		
+	}
+	
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public List<Speise> getSpeisen() {
+		return speisen;
+	}
+
+	public void addSpeise(Speise speise) {
+		this.speisen.add(speise);
+	}
+
+	public List<Getraenk> getGetraenke() {
+		return getraenke;
+	}
+
+	public void addGetraenk(Getraenk getraenk) {
+		this.getraenke.add(getraenk);
+	}
+
+	public UUID getId() {
+		return id;
+	}
 	
 }

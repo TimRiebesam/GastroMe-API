@@ -12,14 +12,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Rezession {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -40,6 +45,11 @@ public class Rezession {
 	
 	public Rezession(String anmerkung) {
 		this.anmerkung = anmerkung;
+	}
+	
+	public Rezession(String anmerkung, Bewertung bewertung) {
+		this.anmerkung = anmerkung;
+		this.bewertung = bewertung;
 	}
 
 	public Restaurant getRestaurant() {

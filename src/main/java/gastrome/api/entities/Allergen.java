@@ -1,30 +1,46 @@
 package gastrome.api.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Allergen {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
-	@ManyToMany(mappedBy = "allergene")
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+            },
+            mappedBy = "allergene")
 	@JsonBackReference(value = "speisen-allergene")
-	private List<Speise> speisen;
+	private List<Speise> speisen = new ArrayList<Speise>();
 	
-	@ManyToMany(mappedBy = "allergene")
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+            },
+            mappedBy = "allergene")
 	@JsonBackReference(value = "getraenke-allergene")
-	private List<Getraenk> getraenke;
+	private List<Getraenk> getraenke = new ArrayList<Getraenk>();
 	
 	private String name;
 	
@@ -46,16 +62,16 @@ public class Allergen {
 		return speisen;
 	}
 
-	public void setSpeisen(List<Speise> speisen) {
-		this.speisen = speisen;
+	public void addSpeise(Speise speise) {
+		this.speisen.add(speise);
 	}
 
 	public List<Getraenk> getGetraenke() {
 		return getraenke;
 	}
 
-	public void setGetraenke(List<Getraenk> getraenke) {
-		this.getraenke = getraenke;
+	public void addGetraenk(Getraenk getraenk) {
+		this.getraenke.add(getraenk);
 	}
 
 	public String getName() {

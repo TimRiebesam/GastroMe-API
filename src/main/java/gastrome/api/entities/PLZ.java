@@ -1,5 +1,6 @@
 package gastrome.api.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,13 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PLZ {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Type(type="uuid-char")
 	private UUID id;
 	
 	@OneToMany(
@@ -26,7 +32,7 @@ public class PLZ {
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
 	@JsonBackReference(value = "standorte-plz")
-	private List<Standort> standorte;
+	private List<Standort> standorte = new ArrayList<Standort>();
 	
 	private int plz;
 	
