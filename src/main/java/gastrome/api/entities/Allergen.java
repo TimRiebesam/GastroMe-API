@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Type;
@@ -46,6 +47,7 @@ public class Allergen {
 	
 	private String bezeichnung;
 	
+	@Lob
 	private byte[] symbol;
 	
 	public Allergen() {

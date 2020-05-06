@@ -51,6 +51,9 @@ public class Restaurant {
 	@JsonManagedReference(value = "restaurant-speisekarte")
 	private Speisekarte speisekarte;
 	
+	@Lob
+	private byte[] bild;
+	
 	public Restaurant(String name, String beschreibung) {
 		this.name = name;
 		this.beschreibung = beschreibung;
@@ -102,6 +105,14 @@ public class Restaurant {
 
 	public UUID getId() {
 		return id;
+	}
+
+	public byte[] getBild() {
+		return bild;
+	}
+
+	public void setBild(byte[] bild) {
+		this.bild = bild;
 	}
 	
 }

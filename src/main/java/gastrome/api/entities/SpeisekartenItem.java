@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 
 import org.hibernate.annotations.Type;
 
@@ -29,6 +30,7 @@ public class SpeisekartenItem {
 	
 	private double preis;
 	
+	@Lob
 	private byte[] bild;
 	
 	private boolean vegie;
