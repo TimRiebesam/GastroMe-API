@@ -19,12 +19,12 @@ public class RestaurantController {
 	@Autowired
 	RestaurantService restaurantService;
 
-	@GetMapping(path= {"restaurant/get/all"})
+	@GetMapping(path= {"restaurant/all"})
 	public List<Restaurant> getAllRestaurants() {
 		return restaurantService.getAllRestaurants();
 	}
 	
-	@GetMapping(path= {"restaurant/{restaurantId}/get"})
+	@GetMapping(path= {"restaurant/{restaurantId}"})
 	public Restaurant getRestaurant(@PathVariable UUID restaurantId) {
 		return restaurantService.getRestaurant(restaurantId);
 	}
