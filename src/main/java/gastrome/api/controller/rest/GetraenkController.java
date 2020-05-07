@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import gastrome.api.services.interfaces.GetraenkService;
 import gastrome.api.services.interfaces.ImageService;
-import gastrome.api.services.interfaces.SpeiseService;
 
 @RestController
-public class SpeiseController {
+public class GetraenkController {
 
 	@Autowired
-	SpeiseService speiseService;
+	GetraenkService getraenkService;
 
 	@Autowired
 	ImageService imageService;
 
-	@GetMapping(path= {"speise/{speiseId}/bild"})
-	public void getBild(@PathVariable UUID speiseId, HttpServletResponse response) throws IOException {
-		imageService.addImageToResponse(speiseService.getBild(speiseId), response);
+	@GetMapping(path= {"getraenk/{getraenkId}/bild"})
+	public void getBild(@PathVariable UUID getraenkId, HttpServletResponse response) throws IOException {
+		imageService.addImageToResponse(getraenkService.getBild(getraenkId), response);
 	}
 
 }

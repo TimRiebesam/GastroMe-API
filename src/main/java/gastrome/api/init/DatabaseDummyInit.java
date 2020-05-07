@@ -129,7 +129,7 @@ public class DatabaseDummyInit {
 		chickenBagel.addAllergen(ei);
 		chickenBagel = speiseRepository.save(chickenBagel);
 		
-		Resource resourceChickenBagel = new ClassPathResource("static/img/chickenBagel.jpg");
+		Resource resourceChickenBagel = new ClassPathResource("static/img/speisen/chickenBagel.jpg");
 		InputStream isChickenBagel = resourceChickenBagel.getInputStream();
 		if(resourceChickenBagel.exists()) {
 			byte[] chickenBagelImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isChickenBagel);
@@ -146,7 +146,7 @@ public class DatabaseDummyInit {
 		freshBagel.addAllergen(nuss);
 		freshBagel = speiseRepository.save(freshBagel);
 
-		Resource resourceFreshBagel = new ClassPathResource("static/img/freshBagel.jpg");
+		Resource resourceFreshBagel = new ClassPathResource("static/img/speisen/freshBagel.jpg");
 		InputStream isFreshBagel = resourceFreshBagel.getInputStream();
 		if(resourceFreshBagel.exists()) {
 			byte[] freshBagelImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isFreshBagel);
@@ -161,7 +161,7 @@ public class DatabaseDummyInit {
 		pommes.addAllergen(kartoffel);
 		pommes = speiseRepository.save(pommes);
 		
-		Resource resourcePommes = new ClassPathResource("static/img/pommes.jpg");
+		Resource resourcePommes = new ClassPathResource("static/img/speisen/pommes.jpg");
 		InputStream isPommes = resourcePommes.getInputStream();
 		if(resourcePommes.exists()) {
 			byte[] pommesImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isPommes);
@@ -176,44 +176,104 @@ public class DatabaseDummyInit {
 		donut.addAllergen(milch);
 		donut = speiseRepository.save(donut);
 		
-		Resource resourceDonut = new ClassPathResource("static/img/donut.jpg");
+		Resource resourceDonut = new ClassPathResource("static/img/speisen/donut.jpg");
 		InputStream isDonut = resourceDonut.getInputStream();
 		if(resourceDonut.exists()) {
 			byte[] donutImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isDonut);
 			donut.setBild(donutImageCompressedAsBytes);
 			donut = speiseRepository.save(donut);
 		}
+				
+		Speise cookie = new Speise("Cookie", "Chocolate Cookie", 1, null, true, false);
+		cookie.setSpeisekarte(speisekarteCafeSimple);
+		cookie = speiseRepository.save(cookie);
+		
+		Resource resourceCookie = new ClassPathResource("static/img/speisen/cookie.jpg");
+		InputStream isCookie = resourceCookie.getInputStream();
+		if(resourceCookie.exists()) {
+			byte[] cookieImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isCookie);
+			cookie.setBild(cookieImageCompressedAsBytes);
+			cookie = speiseRepository.save(cookie);
+		}
 
 		Getraenk espresso = getraenkRepository.save(new Getraenk("Espresso", "Espresso, italienische Röstung", 2, null, true, true));
 		espresso.setSpeisekarte(speisekarteCafeSimple);
 		espresso = getraenkRepository.save(espresso);
+		
+		Resource resourceEspresso = new ClassPathResource("static/img/getraenk/espresso.jpg");
+		InputStream isEspresso = resourceEspresso.getInputStream();
+		if(resourceEspresso.exists()) {
+			byte[] espressoImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isEspresso);
+			espresso.setBild(espressoImageCompressedAsBytes);
+			espresso = getraenkRepository.save(espresso);
+		}
 
 		Getraenk cappuccino = new Getraenk("Cappuccino", "Eine Tasse Cappuccino", 3, null, true, false);
 		cappuccino.setSpeisekarte(speisekarteCafeSimple);
 		cappuccino = getraenkRepository.save(cappuccino);
-
+		
 		cappuccino.addAllergen(milch);
 		cappuccino = getraenkRepository.save(cappuccino);
 
+		Resource resourceCappuccino = new ClassPathResource("static/img/getraenk/cappuccino.jpg");
+		InputStream isCappuccino = resourceCappuccino.getInputStream();
+		if(resourceCappuccino.exists()) {
+			byte[] cappuccinoImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isCappuccino);
+			cappuccino.setBild(cappuccinoImageCompressedAsBytes);
+			cappuccino = getraenkRepository.save(cappuccino);
+		}
+		
 		Getraenk latte = new Getraenk("Latte Macchiato", "Viel Milch, wenig Kaffee", 2.5, null, true, false);
 		latte.setSpeisekarte(speisekarteCafeSimple);
 		latte = getraenkRepository.save(latte);
 
 		latte.addAllergen(milch);
 		latte = getraenkRepository.save(latte);
+		
+		Resource resourceLatte = new ClassPathResource("static/img/getraenk/latte.jpg");
+		InputStream isLatte = resourceLatte.getInputStream();
+		if(resourceLatte.exists()) {
+			byte[] latteImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isLatte);
+			latte.setBild(latteImageCompressedAsBytes);
+			latte = getraenkRepository.save(latte);
+		}
 
 		Getraenk limeSmoothie = getraenkRepository.save(new Getraenk("Lime Smoothie", "Gesunder Smoothie aus frischen Limetten", 4.5, null, true, true));
 		limeSmoothie.setSpeisekarte(speisekarteCafeSimple);
 		limeSmoothie = getraenkRepository.save(limeSmoothie);
+		
+		Resource resourceLimeSmoothie = new ClassPathResource("static/img/getraenk/limeSmoothie.jpg");
+		InputStream isLimeSmoothie = resourceLimeSmoothie.getInputStream();
+		if(resourceLimeSmoothie.exists()) {
+			byte[] limeSmoothieImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isLimeSmoothie);
+			limeSmoothie.setBild(limeSmoothieImageCompressedAsBytes);
+			limeSmoothie = getraenkRepository.save(limeSmoothie);
+		}
+		
+		
+		Getraenk tee = getraenkRepository.save(new Getraenk("Orangen Tee", "Frischer Tee mit Orangen Geschmak", 1.5, null, true, true));
+		tee.setSpeisekarte(speisekarteCafeSimple);
+		tee = getraenkRepository.save(tee);
+		
+		Resource resourceTee = new ClassPathResource("static/img/getraenk/tee.jpg");
+		InputStream isTee = resourceTee.getInputStream();
+		if(resourceTee.exists()) {
+			byte[] teeImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isTee);
+			tee.setBild(teeImageCompressedAsBytes);
+			tee = getraenkRepository.save(tee);
+		}
+		
 
 		speisekarteCafeSimple.addGetraenk(limeSmoothie);
 		speisekarteCafeSimple.addGetraenk(latte);
 		speisekarteCafeSimple.addGetraenk(cappuccino);
 		speisekarteCafeSimple.addGetraenk(espresso);
+		speisekarteCafeSimple.addGetraenk(tee);
 		speisekarteCafeSimple.addSpeise(pommes);
 		speisekarteCafeSimple.addSpeise(donut);
 		speisekarteCafeSimple.addSpeise(freshBagel);
 		speisekarteCafeSimple.addSpeise(chickenBagel);
+		speisekarteCafeSimple.addSpeise(cookie);
 
 		cafeSimple.setSpeisekarte(speisekarteCafeSimple);
 		cafeSimple = restaurantRepository.save(cafeSimple);

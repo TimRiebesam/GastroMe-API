@@ -19,7 +19,7 @@ public class SpeiseServiceImpl implements SpeiseService{
 	@Override
 	public byte[] getBild(UUID speiseId) {
 		Speise speise = speiseRepository.findById(speiseId).orElse(null);
-		if(speise.getBild() != null)
+		if(speise != null && speise.getBild() != null)
 			return speise.getBild();
 		return null;
 	}
