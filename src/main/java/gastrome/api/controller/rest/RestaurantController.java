@@ -1,8 +1,11 @@
 package gastrome.api.controller.rest;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +23,13 @@ public class RestaurantController {
 	RestaurantService restaurantService;
 
 	@GetMapping(path= {"restaurant/all"})
-	public List<Restaurant> getAllRestaurants() {
-		return restaurantService.getAllRestaurants();
+	public List<Restaurant> getAllRestaurants(HttpServletResponse response) throws IOException {
+		return restaurantService.getAllRestaurants(response);
 	}
 	
 	@GetMapping(path= {"restaurant/{restaurantId}"})
-	public Restaurant getRestaurant(@PathVariable UUID restaurantId) {
-		return restaurantService.getRestaurant(restaurantId);
+	public Restaurant getRestaurant(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
+		return restaurantService.getRestaurant(restaurantId, response);
 	}
 	
 }

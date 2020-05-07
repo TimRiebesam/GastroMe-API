@@ -3,12 +3,15 @@ package gastrome.api.services;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -79,6 +82,18 @@ public class ImageServiceImpl implements ImageService{
                         targetHeight // height
         );
         return croppedImage;
+	}
+	
+	@Override
+	public void addImageToResponse(byte[] imageAsBytes, HttpServletResponse response) throws IOException {
+		if(imageAsBytes != null) {
+			ByteArrayInputStream bis = new ByteArrayInputStream(imageAsBytes);;
+			IOUtils.copy(bis, response.getOutputStream());
+			response.flushBuffer();
+		}
+		else {
+			response.sendError(404, "Kein Bild gefunden!");
+		}
 	}
 
 }
