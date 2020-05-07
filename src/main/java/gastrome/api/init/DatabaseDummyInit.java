@@ -1,21 +1,14 @@
 package gastrome.api.init;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 import javax.annotation.PostConstruct;
-import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import gastrome.api.entities.Allergen;
 import gastrome.api.entities.Bewertung;
@@ -87,24 +80,24 @@ public class DatabaseDummyInit {
 		speisekarteRepository.deleteAll();
 		standortRepository.deleteAll();
 	}
-
+	
 	private void fillDatabaseWithInitData() throws IOException {
 		addCafeSimple();
 
 		Restaurant greenGarden = new Restaurant("Green Garden", "Idyllisches Restaurant im Bahnhof, bekannt für vegetarisches Essen und gesunde Smoothies...");
-		greenGarden.setBild(loadImageForPersist("restaurants/greenGarden"));
+		greenGarden.setBild(loadImageFromResources("restaurants/greenGarden"));
 		greenGarden = restaurantRepository.save(greenGarden);
 		
 		Restaurant woodie = new Restaurant("Woodie", "Café in Holzoptik in der Nordstadt,bekannt für Kaffee, Kakao und\r\nSüßes Gebäck...");
-		woodie.setBild(loadImageForPersist("restaurants/woodie"));
+		woodie.setBild(loadImageFromResources("restaurants/woodie"));
 		woodie = restaurantRepository.save(woodie);
-
+		
 		Restaurant burgerParadise = new Restaurant("Burger Paradise", "Burger Restaurant in der Innenstadt, bekannt für Burger, Fritten und Eistee...");
-		burgerParadise.setBild(loadImageForPersist("restaurants/burgerParadise"));
+		burgerParadise.setBild(loadImageFromResources("restaurants/burgerParadise"));
 		burgerParadise = restaurantRepository.save(burgerParadise);
 	}
 	
-	private byte[] loadImageForPersist(String imagePath) throws IOException {
+	private byte[] loadImageFromResources(String imagePath) throws IOException {
 		Resource resource = new ClassPathResource("static/img/" + imagePath + ".jpg");
 		InputStream is = resource.getInputStream();
 		if(resource.exists()) {
@@ -115,10 +108,10 @@ public class DatabaseDummyInit {
 
 	private void addCafeSimple() throws IOException {
 		Restaurant cafeSimple = new Restaurant("Café Simple", "Kleines Café in der Südstadt, bekannt für guten Kaffee und leckere Snacks. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...");
-		cafeSimple.setBild(loadImageForPersist("restaurants/cafeSimple"));
+		cafeSimple.setBild(loadImageFromResources("restaurants/cafeSimple"));
 		cafeSimple = restaurantRepository.save(cafeSimple);
-
-		Standort standortCafeSimple = new Standort("Teststrasse", "1", "...", "...", "Ums Eck rechts");
+		
+		Standort standortCafeSimple = new Standort("Teststrasse", "1", "48.9989515", "8.4017813", "Ums Eck rechts");
 		PLZ plzCafeSimple = plzRepository.save(new PLZ(76137, "Karlsruhe"));
 		standortCafeSimple.setPlz(plzCafeSimple);
 		standortCafeSimple.setRestaurant(cafeSimple);
@@ -136,7 +129,7 @@ public class DatabaseDummyInit {
 
 		Speise chickenBagel = new Speise("Chicken Bagel", "Bagel aus Weißbrot mit frischem Salat, Chicken und Kresse.", 2.5, null, false, false);
 		chickenBagel.setSpeisekarte(speisekarteCafeSimple);
-		chickenBagel.setBild(loadImageForPersist("speisen/chickenBagel"));
+		chickenBagel.setBild(loadImageFromResources("speisen/chickenBagel"));
 		chickenBagel = speiseRepository.save(chickenBagel);
 
 		chickenBagel.addAllergen(gluten);
@@ -145,7 +138,7 @@ public class DatabaseDummyInit {
 
 		Speise freshBagel = new Speise("Fresh Bagel", "Bagel aus Vollkornbrot mit frischem Salat, Tomate, Gurke und Frischkäse.", 2.5, null, true, false);
 		freshBagel.setSpeisekarte(speisekarteCafeSimple);
-		freshBagel.setBild(loadImageForPersist("speisen/freshBagel"));
+		freshBagel.setBild(loadImageFromResources("speisen/freshBagel"));
 		freshBagel = speiseRepository.save(freshBagel);
 
 		freshBagel.addAllergen(gluten);
@@ -155,7 +148,7 @@ public class DatabaseDummyInit {
 
 		Speise pommes = new Speise("Pommes", "200g frische Pommes, mit Ketchup und/oder Mayonnaise.", 2.2, null, true, true);
 		pommes.setSpeisekarte(speisekarteCafeSimple);
-		pommes.setBild(loadImageForPersist("speisen/pommes"));
+		pommes.setBild(loadImageFromResources("speisen/pommes"));
 		pommes = speiseRepository.save(pommes);
 
 		pommes.addAllergen(kartoffel);
@@ -163,7 +156,7 @@ public class DatabaseDummyInit {
 
 		Speise donut = new Speise("Donut", "Süßer Donut mit Zucker-Glasur und Füllung.", 1.5, null, true, false);
 		donut.setSpeisekarte(speisekarteCafeSimple);
-		donut.setBild(loadImageForPersist("speisen/donut"));
+		donut.setBild(loadImageFromResources("speisen/donut"));
 		donut = speiseRepository.save(donut);
 
 		donut.addAllergen(milch);
@@ -171,17 +164,17 @@ public class DatabaseDummyInit {
 				
 		Speise cookie = new Speise("Cookie", "Chocolate Cookie", 1, null, true, false);
 		cookie.setSpeisekarte(speisekarteCafeSimple);
-		cookie.setBild(loadImageForPersist("speisen/cookie"));
+		cookie.setBild(loadImageFromResources("speisen/cookie"));
 		cookie = speiseRepository.save(cookie);
 
 		Getraenk espresso = getraenkRepository.save(new Getraenk("Espresso", "Espresso, italienische Röstung", 2, null, true, true));
 		espresso.setSpeisekarte(speisekarteCafeSimple);
-		espresso.setBild(loadImageForPersist("getraenk/espresso"));
+		espresso.setBild(loadImageFromResources("getraenk/espresso"));
 		espresso = getraenkRepository.save(espresso);
 
 		Getraenk cappuccino = new Getraenk("Cappuccino", "Eine Tasse Cappuccino", 3, null, true, false);
 		cappuccino.setSpeisekarte(speisekarteCafeSimple);
-		cappuccino.setBild(loadImageForPersist("getraenk/cappuccino"));
+		cappuccino.setBild(loadImageFromResources("getraenk/cappuccino"));
 		cappuccino = getraenkRepository.save(cappuccino);
 		
 		cappuccino.addAllergen(milch);
@@ -189,7 +182,7 @@ public class DatabaseDummyInit {
 		
 		Getraenk latte = new Getraenk("Latte Macchiato", "Viel Milch, wenig Kaffee", 2.5, null, true, false);
 		latte.setSpeisekarte(speisekarteCafeSimple);
-		latte.setBild(loadImageForPersist("getraenk/latte"));
+		latte.setBild(loadImageFromResources("getraenk/latte"));
 		latte = getraenkRepository.save(latte);
 
 		latte.addAllergen(milch);
@@ -197,12 +190,12 @@ public class DatabaseDummyInit {
 
 		Getraenk limeSmoothie = getraenkRepository.save(new Getraenk("Lime Smoothie", "Gesunder Smoothie aus frischen Limetten", 4.5, null, true, true));
 		limeSmoothie.setSpeisekarte(speisekarteCafeSimple);
-		limeSmoothie.setBild(loadImageForPersist("getraenk/limeSmoothie"));
+		limeSmoothie.setBild(loadImageFromResources("getraenk/limeSmoothie"));
 		limeSmoothie = getraenkRepository.save(limeSmoothie);
 		
 		Getraenk tee = getraenkRepository.save(new Getraenk("Orangen Tee", "Frischer Tee mit Orangen Geschmak", 1.5, null, true, true));
 		tee.setSpeisekarte(speisekarteCafeSimple);
-		tee.setBild(loadImageForPersist("getraenk/tee"));
+		tee.setBild(loadImageFromResources("getraenk/tee"));
 		tee = getraenkRepository.save(tee);
 
 		speisekarteCafeSimple.addGetraenk(limeSmoothie);
