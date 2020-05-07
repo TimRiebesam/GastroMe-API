@@ -12,6 +12,8 @@ import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
@@ -127,9 +129,10 @@ public class DatabaseDummyInit {
 		chickenBagel.addAllergen(ei);
 		chickenBagel = speiseRepository.save(chickenBagel);
 		
-		File fileChickenBagel = ResourceUtils.getFile("classpath:static/img/chickenBagel.jpg");
-		if(fileChickenBagel.exists()) {
-			byte[] chickenBagelImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(fileChickenBagel);
+		Resource resourceChickenBagel = new ClassPathResource("static/img/chickenBagel.jpg");
+		InputStream isChickenBagel = resourceChickenBagel.getInputStream();
+		if(resourceChickenBagel.exists()) {
+			byte[] chickenBagelImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isChickenBagel);
 			chickenBagel.setBild(chickenBagelImageCompressedAsBytes);
 			chickenBagel = speiseRepository.save(chickenBagel);
 		}
@@ -143,9 +146,10 @@ public class DatabaseDummyInit {
 		freshBagel.addAllergen(nuss);
 		freshBagel = speiseRepository.save(freshBagel);
 
-		File fileFreshBagel = ResourceUtils.getFile("classpath:static/img/freshBagel.jpg");
-		if(fileFreshBagel.exists()) {
-			byte[] freshBagelImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(fileFreshBagel);
+		Resource resourceFreshBagel = new ClassPathResource("static/img/freshBagel.jpg");
+		InputStream isFreshBagel = resourceFreshBagel.getInputStream();
+		if(resourceFreshBagel.exists()) {
+			byte[] freshBagelImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isFreshBagel);
 			freshBagel.setBild(freshBagelImageCompressedAsBytes);
 			freshBagel = speiseRepository.save(freshBagel);
 		}
@@ -157,9 +161,10 @@ public class DatabaseDummyInit {
 		pommes.addAllergen(kartoffel);
 		pommes = speiseRepository.save(pommes);
 		
-		File filePommes = ResourceUtils.getFile("classpath:static/img/pommes.jpg");
-		if(filePommes.exists()) {
-			byte[] pommesImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(filePommes);
+		Resource resourcePommes = new ClassPathResource("static/img/pommes.jpg");
+		InputStream isPommes = resourcePommes.getInputStream();
+		if(resourcePommes.exists()) {
+			byte[] pommesImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isPommes);
 			pommes.setBild(pommesImageCompressedAsBytes);
 			pommes = speiseRepository.save(pommes);
 		}
@@ -171,9 +176,10 @@ public class DatabaseDummyInit {
 		donut.addAllergen(milch);
 		donut = speiseRepository.save(donut);
 		
-		File fileDonut = ResourceUtils.getFile("classpath:static/img/donut.jpg");
-		if(fileDonut.exists()) {
-			byte[] donutImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(fileDonut);
+		Resource resourceDonut = new ClassPathResource("static/img/donut.jpg");
+		InputStream isDonut = resourceDonut.getInputStream();
+		if(resourceDonut.exists()) {
+			byte[] donutImageCompressedAsBytes = imageService.compressJpgImageReturnAsByteArray(isDonut);
 			donut.setBild(donutImageCompressedAsBytes);
 			donut = speiseRepository.save(donut);
 		}

@@ -1,10 +1,13 @@
 package gastrome.api.services.interfaces;
 
-import java.io.File;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface ImageService {
 
-	public byte[] compressJpgImageReturnAsByteArray(File file) throws IOException;
+	public byte[] compressJpgImageReturnAsByteArray(InputStream isChickenBagel) throws IOException;
+
+	public byte[] compressJpgImageReturnAsByteArray(BufferedImage img) throws IOException;
 
 }

@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -19,11 +19,15 @@ public class ImageServiceImpl implements ImageService{
 	
 	@Value("${gastrome.config.images.scaledWidth}")
     private int scaledWidth;
+	
+	@Override
+	public byte[] compressJpgImageReturnAsByteArray(InputStream isChickenBagel) throws IOException {
+		BufferedImage img = ImageIO.read(isChickenBagel);
+		return compressJpgImageReturnAsByteArray(img);
+	}
 
 	@Override
-	public byte[] compressJpgImageReturnAsByteArray(File file) throws IOException {
-		BufferedImage img = ImageIO.read(file);
-		
+	public byte[] compressJpgImageReturnAsByteArray(BufferedImage img) throws IOException {
 		BufferedImage compressedImg = cropImage(img);
 		compressedImg = scaleImage(compressedImg);
 		
