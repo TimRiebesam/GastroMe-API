@@ -10,7 +10,7 @@ import gastrome.api.entities.Restaurant;
 
 public interface RestaurantService {
 
-	public List<Restaurant> getAllRestaurants(HttpServletResponse response) throws IOException;
+	public List<Restaurant> getAllRestaurants(HttpServletResponse response, Double lat, Double lng) throws IOException;
 
 	public Restaurant getRestaurant(UUID restaurantId, HttpServletResponse response) throws IOException;
 
