@@ -81,5 +81,13 @@ public class Speisekarte {
 	public UUID getId() {
 		return id;
 	}
+
+	public void setSpeisen(ArrayList<Speise> speisen) {
+		this.speisen = speisen;
+	}
+
+	public void setGetraenke(ArrayList<Getraenk> getraenke) {
+		this.getraenke = getraenke;
+	}
 	
 }

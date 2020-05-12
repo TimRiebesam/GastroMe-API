@@ -73,5 +73,9 @@ public class Getraenk extends SpeisekartenItem{
 	public UUID getId() {
 		return id;
 	}
+
+	public void setAllergene(List<Allergen> allergene) {
+		this.allergene = allergene;
+	}
 	
 }

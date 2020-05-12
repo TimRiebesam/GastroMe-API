@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -48,7 +49,7 @@ public class Restaurant {
 	
 	@OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
-	@JsonManagedReference(value = "restaurant-speisekarte")
+	@JsonBackReference(value = "restaurant-speisekarte")
 	private Speisekarte speisekarte;
 	
 	@Lob

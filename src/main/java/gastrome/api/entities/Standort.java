@@ -40,13 +40,13 @@ public class Standort {
 	
 	private String hausnummer;
 	
-	private String laengengrad;
+	private double laengengrad;
 	
-	private String breitengrad;
+	private double breitengrad;
 	
 	private String beschreibung;
 	
-	public Standort(String strasse, String hausnummer, String laengengrad, String breitengrad, String beschreibung) {
+	public Standort(String strasse, String hausnummer, double breitengrad, double laengengrad, String beschreibung) {
 		this.strasse = strasse;
 		this.hausnummer = hausnummer;
 		this.laengengrad = laengengrad;
@@ -90,19 +90,19 @@ public class Standort {
 		this.hausnummer = hausnummer;
 	}
 
-	public String getLaengengrad() {
+	public double getLaengengrad() {
 		return laengengrad;
 	}
 
-	public void setLaengengrad(String laengengrad) {
+	public void setLaengengrad(double laengengrad) {
 		this.laengengrad = laengengrad;
 	}
 
-	public String getBreitengrad() {
+	public double getBreitengrad() {
 		return breitengrad;
 	}
 
-	public void setBreitengrad(String breitengrad) {
+	public void setBreitengrad(double breitengrad) {
 		this.breitengrad = breitengrad;
 	}
 
