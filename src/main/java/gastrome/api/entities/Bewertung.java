@@ -37,7 +37,7 @@ public class Bewertung {
 	
 	private int preise;
 	
-	private int sonderwünsche;
+	private int sonderwuensche;
 	
 	public Bewertung() {
 
@@ -48,7 +48,7 @@ public class Bewertung {
 		this.atmosphaere = atmosphaere;
 		this.service = service;
 		this.preise = preise;
-		this.sonderwünsche = sonderwünsche;
+		this.sonderwuensche = sonderwünsche;
 	}
 
 	public Rezession getRezession() {
@@ -91,12 +91,12 @@ public class Bewertung {
 		this.preise = preise;
 	}
 
-	public int getSonderwünsche() {
-		return sonderwünsche;
+	public int getSonderwuensche() {
+		return sonderwuensche;
 	}
 
-	public void setSonderwünsche(int sonderwünsche) {
-		this.sonderwünsche = sonderwünsche;
+	public void setSonderwuensche(int sonderwuensche) {
+		this.sonderwuensche = sonderwuensche;
 	}
 
 	public UUID getId() {
