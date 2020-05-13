@@ -125,6 +125,7 @@ public class DatabaseDummyInit {
 	private void fillDatabaseWithInitData() throws IOException {
 		addCafePalaver();
 		addCafePerlbohne();
+		addOxfordPub();
 		
 		Restaurant woodie = new Restaurant("Woodie", "Café in Holzoptik in der Nordstadt,bekannt für Kaffee, Kakao und\r\nSüßes Gebäck...");
 		woodie.setBild(loadImageFromResources("restaurants/oxford"));
@@ -420,6 +421,112 @@ public class DatabaseDummyInit {
 				new Bewertung(5, 5, 5, 4, 5),
 				new Rezession("Lieblingskaffee :)"),
 				cafePerlbohne);
+	}
+	
+	private void addOxfordPub() throws IOException {
+		Restaurant oxfordPub = saveRestaurant(
+				new Restaurant("Oxford Pub", loadTextFromResources("restaurants/oxford")),
+				"restaurants/oxford");
+		
+		Standort standortOxfordPub = saveStandort(
+				new Standort("Fasanenstraße ", "6", 49.0086442, 8.412434, ""),
+				new PLZ(76131, "Karlsruhe"),
+				oxfordPub
+				);
+		
+		Speisekarte speisekarteOxfordPub = saveSpeisekarte(
+				new Speisekarte(),
+				oxfordPub);
+		
+		Speise hamburgerPommes = saveSpeise(
+				new Speise("Hamburger mit Pommes", "180g Patty, Salat, Tomaten, Zwiebeln und Spezial-Hamburger-Soße + 150g Pommes", 4.9, null, false, false),
+				speisekarteOxfordPub,
+				"speisen/burger_pommes",
+				new ArrayList<Allergen>(Arrays.asList(gluten)));
+		
+		Speise cheeseburgerPommes = saveSpeise(
+				new Speise("Cheeseburger mit Pommes", "180g Patty, Käse, Salat, Tomaten, Zwiebeln und Spezial-Hamburger-Soße + 150gPommes", 5.4, null, false, false),
+				speisekarteOxfordPub,
+				"speisen/cheeseburger_pommes",
+				new ArrayList<Allergen>(Arrays.asList(gluten, milch)));
+		
+		Speise farmerburgerPommes = saveSpeise(
+				new Speise("Farmerburger mit Pommes", "180g Patty, Cheddar, Spiegelei, Bacon und Röstzwiebeln + 150gPommes", 7.9, null, false, false),
+				speisekarteOxfordPub,
+				"speisen/farmerburger_pommes",
+				new ArrayList<Allergen>(Arrays.asList(gluten, milch)));
+		
+		Speise doubleOxPommes = saveSpeise(
+				new Speise("Double OX-Burger mit Pommes", "2 x 180g Patty, Cheddar, Bacon und gegrillte Peperoni + 150gPommes", 9.9, null, false, false),
+				speisekarteOxfordPub,
+				"speisen/doubleox_pommes",
+				new ArrayList<Allergen>(Arrays.asList(gluten, milch)));
+		
+		Speise falafelburgerPommes = saveSpeise(
+				new Speise("Falafelburger mit Pommes", "Kichererbsen-Gemüse-Patty, Kichererbsen-Kokos-Soße und Rucola", 6.9, null, true, true),
+				speisekarteOxfordPub,
+				"speisen/falafel_pommes",
+				new ArrayList<Allergen>(Arrays.asList(gluten)));
+		
+		Speise schnitzelPommes = saveSpeise(
+				new Speise("Schnitzel mit Pommes oder Spätzle", "Braten- oder Rahmsoße", 7.9, null, false, false),
+				speisekarteOxfordPub,
+				"speisen/schnitzel_pommes",
+				new ArrayList<Allergen>(Arrays.asList(gluten)));
+		
+		Getraenk benShaws = saveGetraenk(
+				new Getraenk("Ben Shaws Cloudy Lemonade", "Englische Zitronenlimonade 0,33l", 3.0, null, true, true),
+				speisekarteOxfordPub,
+				"getraenk/ben_shaws",
+				null);
+		
+		Getraenk jamaicaGinger = saveGetraenk(
+				new Getraenk("Old Jamaica Ginger Beer", "0,33l", 3.0, null, true, true),
+				speisekarteOxfordPub,
+				"getraenk/old_jamaica",
+				null);
+		
+		Getraenk craftbeer = saveGetraenk(
+				new Getraenk("Ü Craftbeer", "Überraschungs-Craftbier 0,33l", 3.0, null, true, true),
+				speisekarteOxfordPub,
+				"getraenk/craftbeer",
+				null);
+		
+		Getraenk augustiener = saveGetraenk(
+				new Getraenk("Augustiener Helles", "0,5l", 3.9, null, true, true),
+				speisekarteOxfordPub,
+				"getraenk/augustiener",
+				null);
+		
+		speisekarteOxfordPub = updateSpeisekarte(
+				speisekarteOxfordPub,
+				new ArrayList<Getraenk>(Arrays.asList(benShaws, jamaicaGinger, craftbeer, augustiener)), 
+				new ArrayList<Speise>(Arrays.asList(hamburgerPommes, cheeseburgerPommes, farmerburgerPommes, doubleOxPommes, falafelburgerPommes, schnitzelPommes)));
+
+		Bewertung oxfordPubBewertung1 = saveBewertung(
+				new Bewertung(3, 4, 4, 5, 4),
+				new Rezession("Günstig und lecker, perfekt für Studenten."),
+				oxfordPub);
+		
+		Bewertung oxfordPubBewertung2 = saveBewertung(
+				new Bewertung(4, 5, 5, 5, 4),
+				new Rezession("Faire Preis und ordentliche Portionen."),
+				oxfordPub);
+		
+		Bewertung oxfordPubBewertung3 = saveBewertung(
+				new Bewertung(3, 4, 4, 5, 3),
+				new Rezession("Das Essen ist ok aber absolut nichts besonderes. Preis ist wirklich gut, aber da zahle ich lieber etwas mehr für einen richtigen Burger."),
+				oxfordPub);
+		
+		Bewertung oxfordPubBewertung4 = saveBewertung(
+				new Bewertung(1, 2, 2, 3, 2),
+				new Rezession("Billig-Burger! Nichts für mich!"),
+				oxfordPub);
+		
+		Bewertung oxfordPubBewertung5 = saveBewertung(
+				new Bewertung(4, 5, 5, 5, 5),
+				new Rezession("Super!"),
+				oxfordPub);
 	}
 
 	private void addCafeSimple() throws IOException {
