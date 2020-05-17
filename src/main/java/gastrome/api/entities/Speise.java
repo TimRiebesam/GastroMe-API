@@ -43,6 +43,14 @@ public class Speise extends SpeisekartenItem{
 	    )
 	@JsonManagedReference(value = "speisen-allergene")
 	private List<Allergen> allergene = new ArrayList<Allergen>();
+	
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+            },
+            mappedBy = "speisen")
+	@JsonBackReference(value = "rechnungen-speisen")
+	private List<Rechnung> rechnungen = new ArrayList<Rechnung>();
 
 	public Speise(){
 		
@@ -74,6 +82,18 @@ public class Speise extends SpeisekartenItem{
 
 	public void setAllergene(List<Allergen> allergene) {
 		this.allergene = allergene;
+	}
+	
+	public List<Rechnung> getRechnungen() {
+		return rechnungen;
+	}
+
+	public void setRechnungen(List<Rechnung> rechnungen) {
+		this.rechnungen = rechnungen;
+	}
+	
+	public void addRechnung(Rechnung rechnung) {
+		this.rechnungen.add(rechnung);
 	}
 	
 }

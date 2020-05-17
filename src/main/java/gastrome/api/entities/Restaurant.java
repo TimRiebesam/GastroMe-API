@@ -47,6 +47,14 @@ public class Restaurant {
 	@JsonManagedReference(value = "restaurant-rezessionen")
 	private List<Rezession> rezessionen = new ArrayList<Rezession>();
 	
+	@OneToMany(
+			mappedBy = "restaurant",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "restaurant-tische")
+	private List<Tisch> tische = new ArrayList<Tisch>();
+	
 	@OneToOne(mappedBy = "restaurant", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
 	@JsonBackReference(value = "restaurant-speisekarte")
@@ -114,6 +122,18 @@ public class Restaurant {
 
 	public void setBild(byte[] bild) {
 		this.bild = bild;
+	}
+
+	public List<Tisch> getTische() {
+		return tische;
+	}
+
+	public void setTische(List<Tisch> tische) {
+		this.tische = tische;
+	}
+	
+	public void addTisch(Tisch tisch) {
+		this.tische.add(tisch);
 	}
 	
 }
