@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 
@@ -33,7 +34,13 @@ public class Tisch {
 	
 	private String beschreibung;
 	
-	private boolean besetzt;
+	@OneToMany(
+			mappedBy = "tisch",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "tisch-gaeste")
+	private List<Gast> gaeste = new ArrayList<Gast>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "restaurant_id")
@@ -64,13 +71,13 @@ public class Tisch {
 		this.beschreibung = beschreibung;
 	}
 
-	public boolean isBesetzt() {
+	/*public boolean isBesetzt() {
 		return besetzt;
 	}
 
 	public void setBesetzt(boolean besetzt) {
 		this.besetzt = besetzt;
-	}
+	}*/
 
 	public Restaurant getRestaurant() {
 		return restaurant;
@@ -94,6 +101,22 @@ public class Tisch {
 
 	public UUID getId() {
 		return id;
+	}
+
+	public List<Gast> getGaeste() {
+		return gaeste;
+	}
+
+	public void setGaeste(List<Gast> gaeste) {
+		this.gaeste = gaeste;
+	}
+	
+	public void addGast(Gast gast) {
+		this.gaeste.add(gast);
+	}
+	
+	public void clearGaeste() {
+		this.gaeste.clear();
 	}
 	
 }
