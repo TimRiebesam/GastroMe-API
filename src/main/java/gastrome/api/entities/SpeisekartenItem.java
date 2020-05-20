@@ -2,6 +2,7 @@ package gastrome.api.entities;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,9 @@ public class SpeisekartenItem {
 	
 	private String beschreibung;
 	
+	@Column(length = 1000)
+	private String erlaeuterung;
+
 	private double preis;
 	
 	@Lob
@@ -41,13 +45,14 @@ public class SpeisekartenItem {
 		
 	}
 	
-	public SpeisekartenItem(String name, String beschreibung, double preis, byte[] bild, boolean vegie, boolean vegan) {
+	public SpeisekartenItem(String name, String beschreibung, double preis, byte[] bild, boolean vegie, boolean vegan, String erlaeuterung) {
 		this.name = name;
 		this.beschreibung = beschreibung;
 		this.preis = preis;
 		this.bild = bild;
 		this.vegie = vegie;
 		this.vegan = vegan;
+		this.erlaeuterung = erlaeuterung;
 	}
 
 	public String getName() {
@@ -64,6 +69,14 @@ public class SpeisekartenItem {
 
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
+	}
+	
+	public String getErlaeuterung() {
+		return erlaeuterung;
+	}
+
+	public void setErlaeuterung(String erlaeuterung) {
+		this.erlaeuterung = erlaeuterung;
 	}
 
 	public double getPreis() {
