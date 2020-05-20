@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gastrome.api.entities.Gast;
 import gastrome.api.entities.Tisch;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.SpeisekarteRepository;
@@ -22,9 +23,14 @@ public class TischServiceImpl implements TischService{
 	TischRepository tischRepository;
 
 	@Override
-	public void addGast(UUID gastId, UUID tischId, HttpServletResponse response) throws IOException {
+	public void addGast(Gast gast, UUID tischId, HttpServletResponse response) throws IOException {
 		try{
-			//tischRepository.addGast(gastId, tischId, response);
+			Tisch tisch = tischRepository.findTischById(tischId);
+			System.out.print("tisch gefunden");
+			tisch.addGast(gast);
+			System.out.print("Gast hinzugefügt");
+			tischRepository.save(tisch);
+			System.out.print("gespeichert");
 		} catch (Exception e) {
 			response.sendError(400, e.toString());
 		}

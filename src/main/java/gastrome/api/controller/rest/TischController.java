@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gastrome.api.entities.Gast;
 import gastrome.api.entities.Tisch;
 import gastrome.api.services.interfaces.TischService;
 
@@ -22,13 +23,14 @@ public class TischController {
 	@Autowired
 	TischService tischService;
 	
-	@PatchMapping(path= {"tisch/gaesteliste/add/{gastID}/{tischId}"})
-	public void addGast(@PathVariable UUID gastId, @PathVariable UUID tischId, HttpServletResponse response) throws IOException {
-		tischService.addGast(gastId, tischId, response);
+	@PatchMapping(path= {"tisch/gaesteliste/add/{tischId}"})
+	public String addGast(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
+		tischService.addGast(new Gast(), tischId, response);
+		return "Gast hinzugefuegt";
 	}
 	
 	@PatchMapping(path= {"tisch/gaesteliste/clear/{tischId}"})
-	public void addGast(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
+	public void clearGaeste(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
 		tischService.clearGaeste(tischId, response);
 	}
 
