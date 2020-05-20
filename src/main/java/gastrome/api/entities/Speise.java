@@ -56,8 +56,8 @@ public class Speise extends SpeisekartenItem{
 		
 	}
 	
-	public Speise(String name, String beschreibung, double preis, byte[] bild, boolean vegie, boolean vegan) {
-		super(name, beschreibung, preis, bild, vegie, vegan);
+	public Speise(String name, String beschreibung, double preis, byte[] bild, boolean vegie, boolean vegan, String erlaeuterung) {
+		super(name, beschreibung, preis, bild, vegie, vegan, erlaeuterung);
 	}
 
 	public Speisekarte getSpeisekarte() {
