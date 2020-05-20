@@ -33,6 +33,7 @@ import gastrome.api.entities.Standort;
 import gastrome.api.entities.Tisch;
 import gastrome.api.repositories.AllergenRepository;
 import gastrome.api.repositories.BewertungRepository;
+import gastrome.api.repositories.GastRepository;
 import gastrome.api.repositories.GetraenkRepository;
 import gastrome.api.repositories.PLZRepository;
 import gastrome.api.repositories.RestaurantRepository;
@@ -75,6 +76,9 @@ public class DatabaseDummyInit {
 	
 	@Autowired
 	TischRepository tischRepository;
+	
+	@Autowired
+	GastRepository gastRepository;
 
 	@Autowired
 	ImageService imageService;
@@ -213,13 +217,6 @@ public class DatabaseDummyInit {
 		return getraenkRepository.save(getraenk);
 	}
 	
-	private Tisch saveTisch(Tisch tisch, Rechnung rechnung, Restaurant restaurant) throws IOException {
-		tisch.addGast(new Gast());
-		tisch.addGast(new Gast());
-		tisch.addRechnung(rechnung);
-		tisch.setRestaurant(restaurant);
-		return tischRepository.save(tisch);
-	}
 	
 	private Bewertung saveBewertung(Bewertung bewertung, Rezession rezession, Restaurant restaurant) {
 		bewertung = bewertungRepository.save(bewertung);
@@ -660,6 +657,11 @@ public class DatabaseDummyInit {
 		Tisch tisch6 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
 		
 
+	}
+	
+	private Tisch saveTisch(Tisch tisch, Rechnung rechnung, Restaurant restaurant) throws IOException {
+		tisch.setRestaurant(restaurant);
+		return tischRepository.save(tisch);
 	}
 
 }

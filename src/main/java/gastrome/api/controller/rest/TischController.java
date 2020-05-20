@@ -30,8 +30,9 @@ public class TischController {
 	}
 	
 	@PatchMapping(path= {"tisch/gaesteliste/clear/{tischId}"})
-	public void clearGaeste(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
+	public String clearGaeste(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
 		tischService.clearGaeste(tischId, response);
+		return "Gaesteliste geleert";
 	}
 
 	@GetMapping(path= {"/tisch/restaurant/{restaurantId}"})
