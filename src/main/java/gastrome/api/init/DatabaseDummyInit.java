@@ -5,9 +5,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
+import org.hibernate.id.UUIDGenerator;
+import org.hibernate.type.UUIDCharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -18,15 +21,19 @@ import com.google.common.io.ByteSource;
 
 import gastrome.api.entities.Allergen;
 import gastrome.api.entities.Bewertung;
+import gastrome.api.entities.Gast;
 import gastrome.api.entities.Getraenk;
 import gastrome.api.entities.PLZ;
+import gastrome.api.entities.Rechnung;
 import gastrome.api.entities.Restaurant;
 import gastrome.api.entities.Rezession;
 import gastrome.api.entities.Speise;
 import gastrome.api.entities.Speisekarte;
 import gastrome.api.entities.Standort;
+import gastrome.api.entities.Tisch;
 import gastrome.api.repositories.AllergenRepository;
 import gastrome.api.repositories.BewertungRepository;
+import gastrome.api.repositories.GastRepository;
 import gastrome.api.repositories.GetraenkRepository;
 import gastrome.api.repositories.PLZRepository;
 import gastrome.api.repositories.RestaurantRepository;
@@ -34,6 +41,7 @@ import gastrome.api.repositories.RezessionRepository;
 import gastrome.api.repositories.SpeiseRepository;
 import gastrome.api.repositories.SpeisekarteRepository;
 import gastrome.api.repositories.StandortRepository;
+import gastrome.api.repositories.TischRepository;
 import gastrome.api.services.interfaces.ImageService;
 
 @Component
@@ -65,6 +73,12 @@ public class DatabaseDummyInit {
 
 	@Autowired
 	StandortRepository standortRepository;
+	
+	@Autowired
+	TischRepository tischRepository;
+	
+	@Autowired
+	GastRepository gastRepository;
 
 	@Autowired
 	ImageService imageService;
@@ -86,7 +100,7 @@ public class DatabaseDummyInit {
 	Allergen weichtiere;
 	
 
-	//@PostConstruct
+	@PostConstruct
 	public void loadDummyDataIntoDatabase() throws IOException {
 		clearDatabase();
 		addAllergene();
@@ -202,6 +216,7 @@ public class DatabaseDummyInit {
 		getraenk.setAllergene(allergene);
 		return getraenkRepository.save(getraenk);
 	}
+	
 	
 	private Bewertung saveBewertung(Bewertung bewertung, Rezession rezession, Restaurant restaurant) {
 		bewertung = bewertungRepository.save(bewertung);
@@ -633,6 +648,20 @@ public class DatabaseDummyInit {
 				new Bewertung(4, 3, 4, 5, 2),
 				new Rezession("Gut zum essen, Atmosphäre nicht so toll."),
 				cafeSimple);
+		
+		Tisch tisch1 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		Tisch tisch2 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		Tisch tisch3 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		Tisch tisch4 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		Tisch tisch5 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		Tisch tisch6 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		
+
+	}
+	
+	private Tisch saveTisch(Tisch tisch, Rechnung rechnung, Restaurant restaurant) throws IOException {
+		tisch.setRestaurant(restaurant);
+		return tischRepository.save(tisch);
 	}
 
 }

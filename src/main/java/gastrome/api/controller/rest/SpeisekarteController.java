@@ -26,7 +26,7 @@ public class SpeisekarteController {
 		public Speisekarte getSpeisekarte(@PathVariable UUID speisekarteId, HttpServletResponse response) throws IOException {
 			return speisekarteService.getSpeisekarte(speisekarteId, response);
 		}
-		@GetMapping(path= {"speisekarteByRestaurantId/{restaurantId}"})
+		@GetMapping(path= {"speisekarte/restaurant/{restaurantId}"})
 		public Speisekarte getSpeisekarteByRestaurantId(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
 			return speisekarteService.getSpeisekarteByRestaurantId(restaurantId, response);
 		}
