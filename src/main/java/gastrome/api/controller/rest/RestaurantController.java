@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import gastrome.api.entities.Restaurant;
-import gastrome.api.services.interfaces.ImageService;
-import gastrome.api.services.interfaces.QrCodeService;
 import gastrome.api.services.interfaces.RestaurantService;
 
 
@@ -24,12 +22,6 @@ public class RestaurantController {
 	
 	@Autowired
 	RestaurantService restaurantService;
-	
-	@Autowired
-	ImageService imageService;
-	
-	@Autowired
-	QrCodeService qrCodeService;
 
 	@GetMapping(path= {"restaurant/all"})
 	public List<Restaurant> getAllRestaurants(HttpServletResponse response, @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lng) throws IOException {
@@ -39,11 +31,6 @@ public class RestaurantController {
 	@GetMapping(path= {"restaurant/{restaurantId}"})
 	public Restaurant getRestaurant(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
 		return restaurantService.getRestaurant(restaurantId, response);
-	}
-	
-	@GetMapping(path= {"restaurant/{restaurantId}/qr"})
-	public void getQrCode(@PathVariable UUID restaurantId, HttpServletResponse response) throws Exception {
-		imageService.addImageToResponse(qrCodeService.generate("GastroMe-Wasserzeichen\n" + restaurantId), response);
 	}
 	
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gastrome.api.entities.Gast;
 import gastrome.api.entities.Tisch;
+import gastrome.api.services.interfaces.ImageService;
+import gastrome.api.services.interfaces.QrCodeService;
 import gastrome.api.services.interfaces.TischService;
 
 @RestController
@@ -22,6 +24,12 @@ public class TischController {
 
 	@Autowired
 	TischService tischService;
+	
+	@Autowired
+	ImageService imageService;
+	
+	@Autowired
+	QrCodeService qrCodeService;
 	
 	@PatchMapping(path= {"tisch/gaesteliste/add/{tischId}"})
 	public String addGast(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
@@ -38,6 +46,11 @@ public class TischController {
 	@GetMapping(path= {"/tisch/restaurant/{restaurantId}"})
 	public List<Tisch> getTischeByRestaurantId(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
 		return tischService.getTischeByRestaurantId(restaurantId, response);
+	}
+	
+	@GetMapping(path= {"tisch/{tischId}/qr"})
+	public void getQrCode(@PathVariable UUID tischId, HttpServletResponse response) throws Exception {
+		imageService.addImageToResponse(qrCodeService.generate("GastroMe-Wasserzeichen\n" + tischId), response);
 	}
 
 }
