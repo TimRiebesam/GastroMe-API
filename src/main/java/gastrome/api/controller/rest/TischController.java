@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import gastrome.api.entities.Gast;
+import gastrome.api.entities.Rechnung;
 import gastrome.api.entities.Tisch;
 import gastrome.api.services.interfaces.TischService;
 
@@ -44,4 +45,9 @@ public class TischController {
 		tischService.addQrCodeToResponse(tischId, response);
 	}
 
+	@GetMapping(path = {"tisch/{tischId}/currentRechnung"})
+	public Rechnung getLatestRechnungForTisch(@PathVariable UUID tischId) {
+		return tischService.getLatestRechnungForTisch(tischId);
+	}
+	
 }

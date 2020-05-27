@@ -1,5 +1,6 @@
 package gastrome.api.entities;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -56,6 +57,8 @@ public class Rechnung {
 	    )
 	@JsonManagedReference(value = "rechnungen-getraenke")
 	private List<Getraenk> getraenke = new ArrayList<Getraenk>();
+	
+	private Date timestamp;
 
 	public Tisch getTisch() {
 		return tisch;
@@ -91,6 +94,14 @@ public class Rechnung {
 
 	public UUID getId() {
 		return id;
+	}
+
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 }

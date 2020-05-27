@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 
 import gastrome.api.entities.Gast;
+import gastrome.api.entities.Rechnung;
 import gastrome.api.entities.Tisch;
 
 public interface TischService {
@@ -18,4 +19,6 @@ public interface TischService {
 	public void clearGaeste(UUID tischId, HttpServletResponse response) throws IOException;
 
 	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response) throws Exception;
+
+	public Rechnung getLatestRechnungForTisch(UUID tischId);
 }

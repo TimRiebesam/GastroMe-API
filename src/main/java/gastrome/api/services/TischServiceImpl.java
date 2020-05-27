@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import gastrome.api.entities.Gast;
+import gastrome.api.entities.Rechnung;
 import gastrome.api.entities.Tisch;
 import gastrome.api.repositories.GastRepository;
+import gastrome.api.repositories.RechnungRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.TischRepository;
 import gastrome.api.services.interfaces.ImageService;
@@ -26,6 +28,9 @@ public class TischServiceImpl implements TischService{
 	
 	@Autowired
 	GastRepository gastRepository;
+	
+	@Autowired
+	RechnungRepository rechnungRepository;
 	
 	@Autowired
 	RestaurantRepository restaurantRepository;
@@ -73,6 +78,16 @@ public class TischServiceImpl implements TischService{
 	@Override
 	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response) throws Exception {
 		imageService.addImageToResponse(qrCodeService.generate("GastroMe-Wasserzeichen\n" + tischRepository.findById(tischId).get().getRestaurant().getId() + "\n" + tischId), response);		
+	}
+
+	@Override
+	public Rechnung getLatestRechnungForTisch(UUID tischId) {
+		Rechnung rechnung = rechnungRepository.findTop1ByTischByOrderByTimestamp(tischRepository.findById(tischId).orElse(null));
+		if (rechnung != null)
+			return rechnung;
+		rechnung = new Rechnung();
+		rechnung.setTisch(tischRepository.findTischById(tischId));
+		return rechnungRepository.save(rechnung);
 	}
 	
 	
