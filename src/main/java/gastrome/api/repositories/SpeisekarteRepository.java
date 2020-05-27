@@ -1,9 +1,6 @@
 package gastrome.api.repositories;
 
-import java.io.IOException;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

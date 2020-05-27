@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gastrome.api.entities.Restaurant;
 import gastrome.api.entities.Speisekarte;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.SpeisekarteRepository;
