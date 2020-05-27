@@ -95,7 +95,7 @@ public class QrCodeServiceImpl implements QrCodeService {
     private MatrixToImageConfig getMatrixConfig() {
         // ARGB Colors
         // Check Colors ENUM
-        return new MatrixToImageConfig(QrCodeServiceImpl.Colors.WHITE.getArgb(), QrCodeServiceImpl.Colors.ORANGE.getArgb());
+        return new MatrixToImageConfig(QrCodeServiceImpl.Colors.ORANGE.getArgb(), QrCodeServiceImpl.Colors.WHITE.getArgb());
     }
 
     public enum Colors {

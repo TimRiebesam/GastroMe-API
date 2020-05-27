@@ -13,8 +13,9 @@ import gastrome.api.entities.Gast;
 import gastrome.api.entities.Tisch;
 import gastrome.api.repositories.GastRepository;
 import gastrome.api.repositories.RestaurantRepository;
-import gastrome.api.repositories.SpeisekarteRepository;
 import gastrome.api.repositories.TischRepository;
+import gastrome.api.services.interfaces.ImageService;
+import gastrome.api.services.interfaces.QrCodeService;
 import gastrome.api.services.interfaces.TischService;
 
 @Service
@@ -25,6 +26,15 @@ public class TischServiceImpl implements TischService{
 	
 	@Autowired
 	GastRepository gastRepository;
+	
+	@Autowired
+	RestaurantRepository restaurantRepository;
+	
+	@Autowired
+	ImageService imageService;
+	
+	@Autowired
+	QrCodeService qrCodeService;
 
 	@Override
 	public void addGast(Gast gast, UUID tischId, HttpServletResponse response) throws IOException {
@@ -58,6 +68,11 @@ public class TischServiceImpl implements TischService{
 		
 		return liste;
 		
+	}
+
+	@Override
+	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response) throws Exception {
+		imageService.addImageToResponse(qrCodeService.generate("GastroMe-Wasserzeichen\n" + tischRepository.findById(tischId).get().getRestaurant().getId() + "\n" + tischId), response);		
 	}
 	
 	
