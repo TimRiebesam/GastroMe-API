@@ -1,6 +1,6 @@
 package gastrome.api.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -100,8 +100,8 @@ public class Rechnung {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
+	public void setTimestamp(Date date) {
+		this.timestamp = date;
 	}
 	
 }

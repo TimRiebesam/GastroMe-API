@@ -27,8 +27,8 @@ public class RechnungController {
 	}
 	
 	@PatchMapping(path = {"rechnung/{rechnungId}/add/getraenk"})
-	public Rechnung addGetraenk(@PathVariable UUID rechnungId, @RequestBody UUID getraenkId, HttpServletResponse response) throws IOException {
-		return rechnungService.addGetraenk(rechnungId, getraenkId, response);
+	public Rechnung addGetraenk(@PathVariable UUID rechnungId, @RequestBody String getraenkId, HttpServletResponse response) throws IOException {
+		return rechnungService.addGetraenk(rechnungId, UUID.fromString(getraenkId), response);
 	}
 	
 }

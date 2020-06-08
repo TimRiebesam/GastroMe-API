@@ -1,6 +1,7 @@
 package gastrome.api.services;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -87,6 +88,7 @@ public class TischServiceImpl implements TischService{
 			return rechnung;
 		rechnung = new Rechnung();
 		rechnung.setTisch(tischRepository.findTischById(tischId));
+		rechnung.setTimestamp(new Date());
 		return rechnungRepository.save(rechnung);
 	}
 	
