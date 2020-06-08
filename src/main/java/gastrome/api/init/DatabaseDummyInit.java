@@ -141,11 +141,11 @@ public class DatabaseDummyInit {
 		addCafePerlbohne();
 		addOxfordPub();
 		
-		Restaurant woodie = new Restaurant("Woodie", "Café in Holzoptik in der Nordstadt,bekannt für Kaffee, Kakao und\r\nSüßes Gebäck...");
+		Restaurant woodie = new Restaurant("Woodie", "Café in Holzoptik in der Nordstadt,bekannt für Kaffee, Kakao und\r\nSüßes Gebäck...", "GastroMeWaiterTim@gmail.com");
 		woodie.setBild(loadImageFromResources("restaurants/oxford"));
 		woodie = restaurantRepository.save(woodie);
 		
-		Restaurant burgerParadise = new Restaurant("Burger Paradise", "Burger Restaurant in der Innenstadt, bekannt für Burger, Fritten und Eistee...");
+		Restaurant burgerParadise = new Restaurant("Burger Paradise", "Burger Restaurant in der Innenstadt, bekannt für Burger, Fritten und Eistee...", "GastroMeWaiterTim@gmail.com");
 		burgerParadise.setBild(loadImageFromResources("restaurants/deli"));
 		burgerParadise = restaurantRepository.save(burgerParadise);
 		
@@ -228,7 +228,7 @@ public class DatabaseDummyInit {
 
 	private void addCafePalaver() throws IOException {
 		Restaurant cafePalaver = saveRestaurant(
-				new Restaurant("café palaver", loadTextFromResources("restaurants/palaver")),
+				new Restaurant("café palaver", loadTextFromResources("restaurants/palaver"), "GastroMeWaiterTim@gmail.com"),
 				"restaurants/palaver");
 		
 		Standort standortCafePalaver = saveStandort(
@@ -346,7 +346,7 @@ public class DatabaseDummyInit {
 	
 	private void addCafePerlbohne() throws IOException {
 		Restaurant cafePerlbohne = saveRestaurant(
-				new Restaurant("Perlbohne", loadTextFromResources("restaurants/perlbohne")),
+				new Restaurant("Perlbohne", loadTextFromResources("restaurants/perlbohne"), "GastroMeWaiterTim@gmail.com"),
 				"restaurants/perlbohne");
 		
 		Standort standortCafePerlbohne = saveStandort(
@@ -440,7 +440,7 @@ public class DatabaseDummyInit {
 	
 	private void addOxfordPub() throws IOException {
 		Restaurant oxfordPub = saveRestaurant(
-				new Restaurant("Oxford Pub", loadTextFromResources("restaurants/oxford")),
+				new Restaurant("Oxford Pub", loadTextFromResources("restaurants/oxford"), "GastroMeWaiterTim@gmail.com"),
 				"restaurants/oxford");
 		
 		Standort standortOxfordPub = saveStandort(
@@ -546,7 +546,7 @@ public class DatabaseDummyInit {
 
 	private void addCafeSimple() throws IOException {
 		Restaurant cafeSimple = saveRestaurant(
-				new Restaurant("Café Simple", loadTextFromResources("restaurants/cafeSimple")),
+				new Restaurant("Café Simple", loadTextFromResources("restaurants/cafeSimple"),"CafeSimpleKarlsruhe@gmail.com"),
 				"restaurants/cafeSimple");
 		
 		Standort standortCafeSimple = saveStandort(
