@@ -63,11 +63,14 @@ public class Restaurant {
 	@Lob
 	private byte[] bild;
 	
-	public Restaurant(String name, String beschreibung) {
+	private String email;
+	
+	public Restaurant(String name, String beschreibung, String email) {
 		this.name = name;
 		this.beschreibung = beschreibung;
+		this.email = email;
 	}
-	
+
 	public Restaurant() {
 		
 	}
@@ -136,4 +139,11 @@ public class Restaurant {
 		this.tische.add(tisch);
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
