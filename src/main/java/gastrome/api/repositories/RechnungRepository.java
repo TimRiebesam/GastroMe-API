@@ -10,6 +10,6 @@ import gastrome.api.entities.Tisch;
 
 public interface RechnungRepository extends JpaRepository<Rechnung, UUID>{
 
-	public Rechnung findTop1ByTischByOrderByTimestamp(Tisch tisch);
+	public Rechnung findByTischOrderByTimestamp(Tisch tisch);
 	
 }

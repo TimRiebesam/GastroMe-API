@@ -82,7 +82,7 @@ public class TischServiceImpl implements TischService{
 
 	@Override
 	public Rechnung getLatestRechnungForTisch(UUID tischId) {
-		Rechnung rechnung = rechnungRepository.findTop1ByTischByOrderByTimestamp(tischRepository.findById(tischId).orElse(null));
+		Rechnung rechnung = rechnungRepository.findByTischOrderByTimestamp(tischRepository.findById(tischId).orElse(null));
 		if (rechnung != null)
 			return rechnung;
 		rechnung = new Rechnung();
