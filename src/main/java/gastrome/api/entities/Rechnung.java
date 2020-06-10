@@ -59,6 +59,8 @@ public class Rechnung {
 	private List<Getraenk> getraenke = new ArrayList<Getraenk>();
 	
 	private Date timestamp;
+	
+	private boolean billPayed;
 
 	public Tisch getTisch() {
 		return tisch;
@@ -102,6 +104,14 @@ public class Rechnung {
 
 	public void setTimestamp(Date date) {
 		this.timestamp = date;
+	}
+
+	public boolean isBillPayed() {
+		return billPayed;
+	}
+
+	public void setBillPayed(boolean billPayed) {
+		this.billPayed = billPayed;
 	}
 	
 }

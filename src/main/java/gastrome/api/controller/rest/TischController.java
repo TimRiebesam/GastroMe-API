@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import gastrome.api.entities.Gast;
@@ -41,8 +42,8 @@ public class TischController {
 	}
 	
 	@GetMapping(path= {"tisch/{tischId}/qr"})
-	public void getQrCode(@PathVariable UUID tischId, HttpServletResponse response) throws Exception {
-		tischService.addQrCodeToResponse(tischId, response);
+	public void getQrCode(@PathVariable UUID tischId, HttpServletResponse response, @RequestParam(required = false) boolean sw) throws Exception {
+		tischService.addQrCodeToResponse(tischId, response, sw);
 	}
 
 	@GetMapping(path = {"tisch/{tischId}/currentRechnung"})

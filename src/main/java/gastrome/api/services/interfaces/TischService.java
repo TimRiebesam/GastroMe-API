@@ -18,7 +18,7 @@ public interface TischService {
 	
 	public void clearGaeste(UUID tischId, HttpServletResponse response) throws IOException;
 
-	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response) throws Exception;
+	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response, boolean sw) throws Exception;
 
 	public Rechnung getLatestRechnungForTisch(UUID tischId);
 }

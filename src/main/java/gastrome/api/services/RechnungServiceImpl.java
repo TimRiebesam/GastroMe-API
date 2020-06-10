@@ -50,6 +50,18 @@ public class RechnungServiceImpl implements RechnungService{
 		}
 	}
 
+	@Override
+	public Rechnung payRechnung(UUID rechnungId, HttpServletResponse response) throws IOException {
+		try {
+			Rechnung rechnung = rechnungRepository.findById(rechnungId).orElse(null);
+			rechnung.setBillPayed(true);
+			return rechnungRepository.save(rechnung);
+		} catch (Exception e) {
+			response.sendError(400, e.toString());
+			return null;
+		}
+	}
+
 	
 	
 }

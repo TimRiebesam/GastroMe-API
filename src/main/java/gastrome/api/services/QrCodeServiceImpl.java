@@ -38,7 +38,7 @@ public class QrCodeServiceImpl implements QrCodeService {
     private int width;
 
 	@Override
-    public byte[] generate(String content) throws Exception {
+    public byte[] generate(String content, boolean sw) throws Exception {
         // Create new configuration that specifies the error correction
         Map<EncodeHintType, ErrorCorrectionLevel> hints = new HashMap<>();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
@@ -52,7 +52,8 @@ public class QrCodeServiceImpl implements QrCodeService {
             bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 
             // Load QR image
-            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix, getMatrixConfig());
+            int color = (sw == true) ? Colors.BLACK.argb : Colors.ORANGE.argb;
+            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix, getMatrixConfig(color));
 
             // Load logo image
             BufferedImage overly = getOverly();
@@ -72,7 +73,8 @@ public class QrCodeServiceImpl implements QrCodeService {
             // Write logo into combine image at position (deltaWidth / 2) and
             // (deltaHeight / 2). Background: Left/Right and Top/Bottom must be
             // the same space for the logo to be centered
-            g.drawImage(overly, (int) Math.round(deltaWidth / 2), (int) Math.round(deltaHeight / 2), null);
+            if(sw != true)
+            	g.drawImage(overly, (int) Math.round(deltaWidth / 2), (int) Math.round(deltaHeight / 2), null);
 
             // Write combined image as PNG to OutputStream
             ImageIO.write(combined, "png", os);
@@ -92,10 +94,10 @@ public class QrCodeServiceImpl implements QrCodeService {
     	throw new Exception("Overlay Bild nicht gefunden!");
     }
 
-    private MatrixToImageConfig getMatrixConfig() {
+    private MatrixToImageConfig getMatrixConfig(int color) {
         // ARGB Colors
         // Check Colors ENUM
-        return new MatrixToImageConfig(QrCodeServiceImpl.Colors.ORANGE.getArgb(), QrCodeServiceImpl.Colors.WHITE.getArgb());
+        return new MatrixToImageConfig(color, Colors.WHITE.getArgb());
     }
 
     public enum Colors {

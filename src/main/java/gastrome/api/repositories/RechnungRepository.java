@@ -1,6 +1,7 @@
 package gastrome.api.repositories;
 
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,6 @@ import gastrome.api.entities.Tisch;
 
 public interface RechnungRepository extends JpaRepository<Rechnung, UUID>{
 
-	public Rechnung findByTischOrderByTimestamp(Tisch tisch);
+	public Optional<Rechnung> findTop1ByTischOrderByTimestampDesc(Tisch tisch);
 	
 }

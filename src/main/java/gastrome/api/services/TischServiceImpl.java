@@ -77,19 +77,24 @@ public class TischServiceImpl implements TischService{
 	}
 
 	@Override
-	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response) throws Exception {
-		imageService.addImageToResponse(qrCodeService.generate("GastroMe-Wasserzeichen\n" + tischRepository.findById(tischId).get().getRestaurant().getId() + "\n" + tischId), response);		
+	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response, boolean sw) throws Exception {
+		imageService.addImageToResponse(qrCodeService.generate("GastroMe-Wasserzeichen\n" + tischRepository.findById(tischId).get().getRestaurant().getId() + "\n" + tischId, sw), response);		
 	}
 
 	@Override
 	public Rechnung getLatestRechnungForTisch(UUID tischId) {
-		Rechnung rechnung = rechnungRepository.findByTischOrderByTimestamp(tischRepository.findById(tischId).orElse(null));
-		if (rechnung != null)
-			return rechnung;
-		rechnung = new Rechnung();
-		rechnung.setTisch(tischRepository.findTischById(tischId));
-		rechnung.setTimestamp(new Date());
-		return rechnungRepository.save(rechnung);
+		Tisch tisch = tischRepository.findById(tischId).orElse(null);
+		if(tisch != null) {
+			Rechnung rechnung = rechnungRepository.findTop1ByTischOrderByTimestampDesc(tisch).orElse(null);
+			if(rechnung == null || rechnung.isBillPayed()) {
+				rechnung = new Rechnung();
+				rechnung.setTisch(tischRepository.findTischById(tischId));
+				rechnung.setTimestamp(new Date());
+				return rechnungRepository.save(rechnung);
+			} else
+				return rechnung;
+		}
+		return null;
 	}
 	
 	

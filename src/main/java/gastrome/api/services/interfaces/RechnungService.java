@@ -13,4 +13,6 @@ public interface RechnungService {
 
 	public Rechnung addGetraenk(UUID rechnungId, UUID getraenkId, HttpServletResponse response) throws IOException;
 
+	public Rechnung payRechnung(UUID rechnungId, HttpServletResponse response) throws IOException;
+
 }
