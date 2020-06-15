@@ -51,6 +51,12 @@ public class Rezession {
 		this.anmerkung = anmerkung;
 		this.bewertung = bewertung;
 	}
+	
+	public Rezession(Restaurant restaurant, String anmerkung, Bewertung bewertung) {
+		this.anmerkung = anmerkung;
+		this.bewertung = bewertung;
+		this.restaurant = restaurant;
+	}
 
 	public Restaurant getRestaurant() {
 		return restaurant;
