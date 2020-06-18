@@ -52,6 +52,14 @@ public class Restaurant {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
 			fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "restaurant-feedbacks")
+	private List<Feedback> feedbacks = new ArrayList<Feedback>();
+	
+	@OneToMany(
+			mappedBy = "restaurant",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "restaurant-tische")
 	private List<Tisch> tische = new ArrayList<Tisch>();
 	
@@ -146,4 +154,18 @@ public class Restaurant {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(List<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+	
+	public void addFeedback(Feedback feedback) {
+		this.feedbacks.add(feedback);
+	}
+	
+	
 }
