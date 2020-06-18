@@ -1,11 +1,14 @@
 package gastrome.api.controller.rest;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import gastrome.api.entities.Bewertung;
 import gastrome.api.entities.Restaurant;
 import gastrome.api.entities.Rezession;
+import gastrome.api.entities.Speisekarte;
 import gastrome.api.repositories.BewertungRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.services.interfaces.RezessionService;
@@ -56,6 +60,11 @@ public class RezessionController {
 		bewertungRepository.save(bewertung);
 		
 		return rezession;
+	}
+	
+	@GetMapping(path= {"rezession/all/restaurant/{restaurantId}"})
+	public List<Rezession> getRezessionsByRestaurantId(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
+		return rezessionService.getRezessionenByRestaurantId(restaurantId, response);
 	}
 
 }
