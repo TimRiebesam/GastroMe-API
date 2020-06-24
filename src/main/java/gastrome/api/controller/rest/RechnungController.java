@@ -36,4 +36,9 @@ public class RechnungController {
 		return rechnungService.payRechnung(rechnungId, response);
 	}
 	
+	@PatchMapping(path = {"rechnung/acceptorder"})
+	public Rechnung acceptOrder(@RequestBody String getraenkOrderId, HttpServletResponse response) throws IOException {
+		return rechnungService.acceptOrder(UUID.fromString(getraenkOrderId), response);
+	}
+	
 }

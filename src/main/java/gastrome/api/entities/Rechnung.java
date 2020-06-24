@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 
@@ -47,16 +48,13 @@ public class Rechnung {
 	@JsonManagedReference(value = "rechnungen-speisen")
 	private List<Speise> speisen = new ArrayList<Speise>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-            })
-	@JoinTable(name = "rechnung_getraenk",
-	        joinColumns = @JoinColumn(name = "rechnung_id", referencedColumnName="id"),
-	        inverseJoinColumns = @JoinColumn(name = "getraenk_id", referencedColumnName="id")
-	    )
-	@JsonManagedReference(value = "rechnungen-getraenke")
-	private List<Getraenk> getraenke = new ArrayList<Getraenk>();
+	@OneToMany(
+			mappedBy = "rechnung",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "rechnung-getraenkOrder")
+	private List<GetraenkOrder> getraenkOrders = new ArrayList<GetraenkOrder>();
 	
 	private Date timestamp;
 	
@@ -82,18 +80,6 @@ public class Rechnung {
 		this.speisen.add(speise);
 	}
 
-	public List<Getraenk> getGetraenke() {
-		return getraenke;
-	}
-
-	public void setGetraenke(List<Getraenk> getraenke) {
-		this.getraenke = getraenke;
-	}
-	
-	public void addGetraenk(Getraenk getraenk) {
-		this.getraenke.add(getraenk);
-	}
-
 	public UUID getId() {
 		return id;
 	}
@@ -112,6 +98,18 @@ public class Rechnung {
 
 	public void setBillPayed(boolean billPayed) {
 		this.billPayed = billPayed;
+	}
+
+	public List<GetraenkOrder> getGetraenkOrders() {
+		return getraenkOrders;
+	}
+
+	public void setGetraenkOrders(List<GetraenkOrder> getraenkOrders) {
+		this.getraenkOrders = getraenkOrders;
+	}
+	
+	public void addGetraenkOrder(GetraenkOrder getraenkOrder) {
+		this.getraenkOrders.add(getraenkOrder);
 	}
 	
 }

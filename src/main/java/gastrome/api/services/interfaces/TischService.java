@@ -21,4 +21,6 @@ public interface TischService {
 	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response, boolean sw) throws Exception;
 
 	public Rechnung getLatestRechnungForTisch(UUID tischId);
+
+	public void callKellner(UUID tischId, HttpServletResponse response) throws IOException;
 }

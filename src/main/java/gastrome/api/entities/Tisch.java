@@ -33,6 +33,8 @@ public class Tisch {
 	
 	private String beschreibung;
 	
+	private boolean kellnerGerufen;
+	
 	@OneToMany(
 			mappedBy = "tisch",
 			cascade = CascadeType.ALL,
@@ -53,6 +55,14 @@ public class Tisch {
 			fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "tisch-rechnungen")
 	private List<Rechnung> rechnungen = new ArrayList<Rechnung>();
+	
+	public boolean isKellnerGerufen() {
+		return kellnerGerufen;
+	}
+
+	public void setKellnerGerufen(boolean kellnerGerufen) {
+		this.kellnerGerufen = kellnerGerufen;
+	}
 
 	public String getNummer() {
 		return nummer;

@@ -51,4 +51,10 @@ public class TischController {
 		return tischService.getLatestRechnungForTisch(tischId);
 	}
 	
+	@PatchMapping(path = {"tisch/{tischId}/kellner"})
+	public String kellnerCalled(@PathVariable UUID tischId,HttpServletResponse response) throws IOException {
+		tischService.callKellner(tischId, response);
+		return "Kellner gerufen";
+	}
+	
 }

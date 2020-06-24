@@ -5,12 +5,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
-import org.hibernate.id.UUIDGenerator;
-import org.hibernate.type.UUIDCharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -21,7 +18,6 @@ import com.google.common.io.ByteSource;
 
 import gastrome.api.entities.Allergen;
 import gastrome.api.entities.Bewertung;
-import gastrome.api.entities.Gast;
 import gastrome.api.entities.Getraenk;
 import gastrome.api.entities.PLZ;
 import gastrome.api.entities.Rechnung;
@@ -100,7 +96,7 @@ public class DatabaseDummyInit {
 	Allergen weichtiere;
 	
 
-	@PostConstruct
+	//@PostConstruct
 	public void loadDummyDataIntoDatabase() throws IOException {
 		clearDatabase();
 		addAllergene();

@@ -97,6 +97,15 @@ public class TischServiceImpl implements TischService{
 		return null;
 	}
 	
-	
+	@Override
+	public void callKellner(UUID tischId, HttpServletResponse response) throws IOException {
+		Tisch tisch = tischRepository.findById(tischId).orElse(null);
+		if(tisch != null) {
+			tisch.setKellnerGerufen(true);
+			tischRepository.save(tisch);
+		} else {
+			response.sendError(404, "Tisch nicht gefunden!");
+		}
+	}
 	
 }

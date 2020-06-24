@@ -15,4 +15,6 @@ public interface RechnungService {
 
 	public Rechnung payRechnung(UUID rechnungId, HttpServletResponse response) throws IOException;
 
+	public Rechnung acceptOrder(UUID fromString, HttpServletResponse response) throws IOException;
+
 }
