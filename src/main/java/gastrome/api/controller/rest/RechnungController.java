@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import gastrome.api.entities.GetraenkOrder;
 import gastrome.api.entities.Rechnung;
 import gastrome.api.services.interfaces.RechnungService;
 
@@ -37,7 +38,7 @@ public class RechnungController {
 	}
 	
 	@PatchMapping(path = {"rechnung/acceptorder"})
-	public Rechnung acceptOrder(@RequestBody String getraenkOrderId, HttpServletResponse response) throws IOException {
+	public GetraenkOrder acceptOrder(@RequestBody String getraenkOrderId, HttpServletResponse response) throws IOException {
 		return rechnungService.acceptOrder(UUID.fromString(getraenkOrderId), response);
 	}
 	

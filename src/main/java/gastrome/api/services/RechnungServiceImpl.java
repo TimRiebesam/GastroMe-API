@@ -68,12 +68,11 @@ public class RechnungServiceImpl implements RechnungService{
 	}
 
 	@Override
-	public Rechnung acceptOrder(UUID getraenkOrderId, HttpServletResponse response) throws IOException {
+	public GetraenkOrder acceptOrder(UUID getraenkOrderId, HttpServletResponse response) throws IOException {
 		try {
 			GetraenkOrder getraenkOrder = getraenkOrderRepository.findById(getraenkOrderId).orElse(null);
 			getraenkOrder.setAusgeliefert(true);
-			getraenkOrder = getraenkOrderRepository.save(getraenkOrder);
-			return getraenkOrder.getRechnung();
+			return getraenkOrderRepository.save(getraenkOrder);
 		} catch (Exception e) {
 			response.sendError(400, e.toString());
 			return null;

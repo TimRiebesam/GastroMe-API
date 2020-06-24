@@ -108,4 +108,16 @@ public class TischServiceImpl implements TischService{
 		}
 	}
 	
+	@Override
+	public Tisch kellnerCalledDone(UUID tischId, HttpServletResponse response) throws IOException {
+		Tisch tisch = tischRepository.findById(tischId).orElse(null);
+		if(tisch != null) {
+			tisch.setKellnerGerufen(false);
+			return tischRepository.save(tisch);
+		} else {
+			response.sendError(404, "Tisch nicht gefunden!");
+			return null;
+		}
+	}
+	
 }

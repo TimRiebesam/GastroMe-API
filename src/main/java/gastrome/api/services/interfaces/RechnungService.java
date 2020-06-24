@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
+import gastrome.api.entities.GetraenkOrder;
 import gastrome.api.entities.Rechnung;
 
 public interface RechnungService {
@@ -15,6 +16,6 @@ public interface RechnungService {
 
 	public Rechnung payRechnung(UUID rechnungId, HttpServletResponse response) throws IOException;
 
-	public Rechnung acceptOrder(UUID fromString, HttpServletResponse response) throws IOException;
+	public GetraenkOrder acceptOrder(UUID fromString, HttpServletResponse response) throws IOException;
 
 }

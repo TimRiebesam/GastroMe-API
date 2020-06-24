@@ -23,4 +23,6 @@ public interface TischService {
 	public Rechnung getLatestRechnungForTisch(UUID tischId);
 
 	public void callKellner(UUID tischId, HttpServletResponse response) throws IOException;
+
+	public Tisch kellnerCalledDone(UUID tischId, HttpServletResponse response) throws IOException;
 }

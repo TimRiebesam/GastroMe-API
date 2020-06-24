@@ -57,4 +57,9 @@ public class TischController {
 		return "Kellner gerufen";
 	}
 	
+	@PatchMapping(path = {"tisch/{tischId}/kellner/done"})
+	public Tisch kellnerCalledDone(@PathVariable UUID tischId,HttpServletResponse response) throws IOException {
+		return tischService.kellnerCalledDone(tischId, response);
+	}
+	
 }
