@@ -96,7 +96,7 @@ public class DatabaseDummyInit {
 	Allergen weichtiere;
 	
 
-	//@PostConstruct
+	@PostConstruct
 	public void loadDummyDataIntoDatabase() throws IOException {
 		clearDatabase();
 		addAllergene();

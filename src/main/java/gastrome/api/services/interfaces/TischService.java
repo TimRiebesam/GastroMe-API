@@ -16,6 +16,8 @@ public interface TischService {
 	
 	public void addGast(Gast gast, UUID tisch, HttpServletResponse response) throws IOException;
 	
+	public Tisch addTisch(UUID restaurantId, HttpServletResponse response) throws IOException;
+	
 	public void clearGaeste(UUID tischId, HttpServletResponse response) throws IOException;
 
 	public void addQrCodeToResponse(UUID tischId, HttpServletResponse response, boolean sw) throws Exception;

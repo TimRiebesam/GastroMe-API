@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +40,11 @@ public class TischController {
 	@GetMapping(path= {"/tisch/restaurant/{restaurantId}"})
 	public List<Tisch> getTischeByRestaurantId(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
 		return tischService.getTischeByRestaurantId(restaurantId, response);
+	}
+	
+	@PostMapping(path= {"/tisch/add/restaurant/{restaurantId}"})
+	public Tisch addTisch (@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
+		return tischService.addTisch(restaurantId, response);
 	}
 	
 	@GetMapping(path= {"tisch/{tischId}/qr"})

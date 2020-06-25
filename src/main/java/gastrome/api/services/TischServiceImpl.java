@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import gastrome.api.entities.Gast;
 import gastrome.api.entities.Rechnung;
+import gastrome.api.entities.Restaurant;
 import gastrome.api.entities.Tisch;
 import gastrome.api.repositories.GastRepository;
 import gastrome.api.repositories.RechnungRepository;
@@ -53,6 +54,19 @@ public class TischServiceImpl implements TischService{
 		} catch (Exception e) {
 			response.sendError(400, e.toString());
 		}
+	}
+	
+	@Override
+	public Tisch addTisch(UUID restaurantId, HttpServletResponse response) throws IOException {
+		try{
+			Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
+			Tisch tisch = new Tisch();
+			tisch.setRestaurant(restaurant);
+			return tischRepository.save(tisch);
+		} catch (Exception e) {
+			response.sendError(400, e.toString());
+		}
+		return null;
 	}
 
 	@Override
