@@ -98,8 +98,11 @@ public class DatabaseDummyInit {
 
 	@PostConstruct
 	public void loadDummyDataIntoDatabase() throws IOException {
+		System.out.println("DB wird gelöscht...");
 		clearDatabase();
+		System.out.println("Allergene in DB speichern...");
 		addAllergene();
+		System.out.println("Dummydaten in DB speichern...");
 		fillDatabaseWithInitData();
 	}
 
@@ -221,6 +224,11 @@ public class DatabaseDummyInit {
 		rezessionRepository.save(rezession);
 		return bewertungRepository.save(bewertung);
 	}
+	
+	private Tisch saveTisch(Tisch tisch, Rechnung rechnung, Restaurant restaurant) throws IOException {
+		tisch.setRestaurant(restaurant);
+		return tischRepository.save(tisch);
+	}
 
 	private void addCafePalaver() throws IOException {
 		Restaurant cafePalaver = saveRestaurant(
@@ -338,6 +346,13 @@ public class DatabaseDummyInit {
 				new Bewertung(4, 3, 4, 5, 2),
 				new Rezession("Gut zum essen, Atmosphäre nicht so toll."),
 				cafePalaver);
+		
+		Tisch tisch1 = saveTisch(new Tisch("Tisch 1"), new Rechnung(), cafePalaver);
+		Tisch tisch2 = saveTisch(new Tisch("Tisch 2"), new Rechnung(), cafePalaver);
+		Tisch tisch3 = saveTisch(new Tisch("Tisch 3"), new Rechnung(), cafePalaver);
+		Tisch tisch4 = saveTisch(new Tisch("Tisch 4"), new Rechnung(), cafePalaver);
+		Tisch tisch5 = saveTisch(new Tisch("Tisch 5"), new Rechnung(), cafePalaver);
+		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), cafePalaver);
 	}
 	
 	private void addCafePerlbohne() throws IOException {
@@ -432,6 +447,13 @@ public class DatabaseDummyInit {
 				new Bewertung(5, 5, 5, 4, 5),
 				new Rezession("Lieblingskaffee :)"),
 				cafePerlbohne);
+		
+		Tisch tisch1 = saveTisch(new Tisch("Tisch 1"), new Rechnung(), cafePerlbohne);
+		Tisch tisch2 = saveTisch(new Tisch("Tisch 2"), new Rechnung(), cafePerlbohne);
+		Tisch tisch3 = saveTisch(new Tisch("Tisch 3"), new Rechnung(), cafePerlbohne);
+		Tisch tisch4 = saveTisch(new Tisch("Tisch 4"), new Rechnung(), cafePerlbohne);
+		Tisch tisch5 = saveTisch(new Tisch("Tisch 5"), new Rechnung(), cafePerlbohne);
+		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), cafePerlbohne);
 	}
 	
 	private void addOxfordPub() throws IOException {
@@ -538,6 +560,13 @@ public class DatabaseDummyInit {
 				new Bewertung(4, 5, 5, 5, 5),
 				new Rezession("Super!"),
 				oxfordPub);
+		
+		Tisch tisch1 = saveTisch(new Tisch("Tisch 1"), new Rechnung(), oxfordPub);
+		Tisch tisch2 = saveTisch(new Tisch("Tisch 2"), new Rechnung(), oxfordPub);
+		Tisch tisch3 = saveTisch(new Tisch("Tisch 3"), new Rechnung(), oxfordPub);
+		Tisch tisch4 = saveTisch(new Tisch("Tisch 4"), new Rechnung(), oxfordPub);
+		Tisch tisch5 = saveTisch(new Tisch("Tisch 5"), new Rechnung(), oxfordPub);
+		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), oxfordPub);
 	}
 
 	private void addCafeSimple() throws IOException {
@@ -645,19 +674,14 @@ public class DatabaseDummyInit {
 				new Rezession("Gut zum essen, Atmosphäre nicht so toll."),
 				cafeSimple);
 		
-		Tisch tisch1 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
-		Tisch tisch2 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
-		Tisch tisch3 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
-		Tisch tisch4 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
-		Tisch tisch5 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
-		Tisch tisch6 = saveTisch(new Tisch(), new Rechnung(), cafeSimple);
+		Tisch tisch1 = saveTisch(new Tisch("Tisch 1"), new Rechnung(), cafeSimple);
+		Tisch tisch2 = saveTisch(new Tisch("Tisch 2"), new Rechnung(), cafeSimple);
+		Tisch tisch3 = saveTisch(new Tisch("Tisch 3"), new Rechnung(), cafeSimple);
+		Tisch tisch4 = saveTisch(new Tisch("Tisch 4"), new Rechnung(), cafeSimple);
+		Tisch tisch5 = saveTisch(new Tisch("Tisch 5"), new Rechnung(), cafeSimple);
+		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), cafeSimple);
 		
 
-	}
-	
-	private Tisch saveTisch(Tisch tisch, Rechnung rechnung, Restaurant restaurant) throws IOException {
-		tisch.setRestaurant(restaurant);
-		return tischRepository.save(tisch);
 	}
 
 }
