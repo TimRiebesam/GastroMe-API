@@ -7,10 +7,12 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,9 +44,19 @@ public class TischController {
 		return tischService.getTischeByRestaurantId(restaurantId, response);
 	}
 	
+	@DeleteMapping(path = {"tisch/{tischId}"})
+	public void deleteTisch(@PathVariable UUID tischId, HttpServletResponse response) throws IOException {
+		tischService.deleteTisch(tischId, response);
+	}
+	
+	@PatchMapping(path = {"tisch/{tischId}"})
+	public Tisch updateTisch(@PathVariable UUID tischId, HttpServletResponse response, @RequestBody String beschreibung) throws IOException {
+		return tischService.updateTisch(tischId, response, beschreibung);
+	}
+	
 	@PostMapping(path= {"/tisch/add/restaurant/{restaurantId}"})
-	public Tisch addTisch (@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
-		return tischService.addTisch(restaurantId, response);
+	public Tisch addTisch (@PathVariable UUID restaurantId, HttpServletResponse response, @RequestParam(required = false) String beschreibung) throws IOException {
+		return tischService.addTisch(restaurantId, response, beschreibung);
 	}
 	
 	@GetMapping(path= {"tisch/{tischId}/qr"})

@@ -57,10 +57,11 @@ public class TischServiceImpl implements TischService{
 	}
 	
 	@Override
-	public Tisch addTisch(UUID restaurantId, HttpServletResponse response) throws IOException {
+	public Tisch addTisch(UUID restaurantId, HttpServletResponse response, String beschreibung) throws IOException {
 		try{
 			Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
 			Tisch tisch = new Tisch();
+			tisch.setBeschreibung(beschreibung);
 			tisch.setRestaurant(restaurant);
 			return tischRepository.save(tisch);
 		} catch (Exception e) {
@@ -127,6 +128,27 @@ public class TischServiceImpl implements TischService{
 		Tisch tisch = tischRepository.findById(tischId).orElse(null);
 		if(tisch != null) {
 			tisch.setKellnerGerufen(false);
+			return tischRepository.save(tisch);
+		} else {
+			response.sendError(404, "Tisch nicht gefunden!");
+			return null;
+		}
+	}
+
+	@Override
+	public void deleteTisch(UUID tischId, HttpServletResponse response) throws IOException {
+		Tisch tisch = tischRepository.findById(tischId).orElse(null);
+		if(tisch != null)
+			tischRepository.delete(tisch);
+		else 
+			response.sendError(404, "Tisch nicht gefunden!");
+	}
+
+	@Override
+	public Tisch updateTisch(UUID tischId, HttpServletResponse response, String beschreibung) throws IOException {
+		Tisch tisch = tischRepository.findById(tischId).orElse(null);
+		if(tisch != null) {
+			tisch.setBeschreibung(beschreibung);
 			return tischRepository.save(tisch);
 		} else {
 			response.sendError(404, "Tisch nicht gefunden!");

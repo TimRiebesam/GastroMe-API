@@ -56,6 +56,14 @@ public class Tisch {
 	@JsonManagedReference(value = "tisch-rechnungen")
 	private List<Rechnung> rechnungen = new ArrayList<Rechnung>();
 	
+	public Tisch() {
+		
+	}
+	
+	public Tisch(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+	
 	public boolean isKellnerGerufen() {
 		return kellnerGerufen;
 	}

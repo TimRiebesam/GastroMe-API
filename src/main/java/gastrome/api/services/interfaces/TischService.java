@@ -16,7 +16,7 @@ public interface TischService {
 	
 	public void addGast(Gast gast, UUID tisch, HttpServletResponse response) throws IOException;
 	
-	public Tisch addTisch(UUID restaurantId, HttpServletResponse response) throws IOException;
+	public Tisch addTisch(UUID restaurantId, HttpServletResponse response, String beschreibung) throws IOException;
 	
 	public void clearGaeste(UUID tischId, HttpServletResponse response) throws IOException;
 
@@ -27,4 +27,8 @@ public interface TischService {
 	public void callKellner(UUID tischId, HttpServletResponse response) throws IOException;
 
 	public Tisch kellnerCalledDone(UUID tischId, HttpServletResponse response) throws IOException;
+
+	public void deleteTisch(UUID tischId, HttpServletResponse response) throws IOException;
+
+	public Tisch updateTisch(UUID tischId, HttpServletResponse response, String beschreibung) throws IOException;
 }
