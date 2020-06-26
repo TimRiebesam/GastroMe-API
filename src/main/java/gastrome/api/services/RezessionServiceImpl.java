@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import gastrome.api.entities.Rezession;
-import gastrome.api.entities.Speisekarte;
-import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.RezessionRepository;
 import gastrome.api.services.interfaces.RezessionService;
 

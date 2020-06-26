@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import gastrome.api.entities.Bewertung;
 import gastrome.api.entities.Restaurant;
 import gastrome.api.entities.Rezession;
-import gastrome.api.entities.Speisekarte;
 import gastrome.api.repositories.BewertungRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.services.interfaces.RezessionService;
