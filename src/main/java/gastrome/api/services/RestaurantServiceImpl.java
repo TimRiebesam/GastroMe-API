@@ -12,10 +12,15 @@ import org.springframework.stereotype.Service;
 
 import gastrome.api.entities.PLZ;
 import gastrome.api.entities.Restaurant;
+import gastrome.api.entities.RestaurantJson;
+import gastrome.api.entities.Standort;
 import gastrome.api.entities.geonames.GeonamesNearbyPostalCodesResponse;
+import gastrome.api.entities.positionstack.PositionstackGeoApiData;
 import gastrome.api.repositories.PLZRepository;
 import gastrome.api.repositories.RestaurantRepository;
+import gastrome.api.repositories.StandortRepository;
 import gastrome.api.services.interfaces.GeoService;
+import gastrome.api.services.interfaces.ImageService;
 import gastrome.api.services.interfaces.RestaurantService;
 
 @Service
@@ -29,6 +34,12 @@ public class RestaurantServiceImpl implements RestaurantService{
 	
 	@Autowired
 	PLZRepository plzRepository;
+	
+	@Autowired
+	StandortRepository standortRepository;
+	
+	@Autowired
+	ImageService imageService;
 	
 	@Override
 	public List<Restaurant> getAllRestaurants(HttpServletResponse response, Double lat, Double lng) throws IOException {
@@ -79,6 +90,46 @@ public class RestaurantServiceImpl implements RestaurantService{
 			response.sendError(404, "Restaurant nicht gefunden!");
 		
 		return restaurant;
+	}
+
+	@Override
+	public Restaurant updateRestaurant(UUID restaurantId, HttpServletResponse response, RestaurantJson restaurantJson) throws IOException {
+		Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
+		if(restaurant == null) {
+			response.sendError(404, "Restaurant nicht gefunden!");
+			return null;
+		}
+		else {
+			PositionstackGeoApiData locationData = geoService.getGeodataFromAddress(
+					Integer.parseInt(restaurantJson.getPlz()), restaurantJson.getStrasse(), restaurantJson.getHausnummer());
+			
+			if(locationData != null) {
+				restaurant.setName(restaurantJson.getName());
+				restaurant.setBeschreibung(restaurantJson.getBeschreibung());
+				restaurant.setEmail(restaurantJson.getEmail());
+				if(!restaurantJson.getBild().equals(""))
+					restaurant.setBild(imageService.base64StringToByteArray(restaurantJson.getBild()));
+				
+				PLZ plz = restaurant.getStandort().getPlz();
+				plz.setPlz(Integer.parseInt(restaurantJson.getPlz()));
+				plz.setStadt(restaurantJson.getStadt());
+				plzRepository.save(plz);
+				
+				Standort standort = restaurant.getStandort();
+				standort.setHausnummer("" + restaurantJson.getHausnummer());
+				standort.setStrasse(restaurantJson.getStrasse());
+				standort.setLaengengrad(locationData.getLongitude());
+				standort.setBreitengrad(locationData.getLatitude());
+				standort.setBeschreibung(locationData.getName() + "," + locationData.getPostal_code() + ", " + locationData.getRegion() + ", " + locationData.getCountry());
+				standort.setPlz(plz);
+				standortRepository.save(standort);
+				
+				return restaurantRepository.save(restaurant);
+			} else {
+				response.sendError(400, "Die übergebenen Adressdaten waren fehlerhaft oder konnten nicht in Längen- und Breitengrade übersetzt werden.");
+				return null;
+			}
+		}
 	}
 	
 }

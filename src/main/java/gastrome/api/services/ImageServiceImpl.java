@@ -15,6 +15,8 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import sun.misc.BASE64Decoder;
+
 import gastrome.api.services.interfaces.ImageService;
 
 @Service
@@ -94,6 +96,24 @@ public class ImageServiceImpl implements ImageService{
 		else {
 			response.sendError(404, "Kein Bild gefunden!");
 		}
+	}
+	
+	@Override
+	public byte[] base64StringToByteArray(String base64String) throws IOException {
+		String[] parts = base64String.split(",");
+		String imageString = parts[1];
+
+		// create a buffered image
+		BufferedImage image = null;
+		byte[] imageByte;
+
+		BASE64Decoder decoder = new BASE64Decoder();
+		imageByte = decoder.decodeBuffer(imageString);
+		ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+		image = ImageIO.read(bis);
+		bis.close();
+		
+		return compressJpgImageReturnAsByteArray(image);
 	}
 
 }

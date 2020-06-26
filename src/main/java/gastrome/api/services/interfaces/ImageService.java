@@ -14,4 +14,6 @@ public interface ImageService {
 
 	public void addImageToResponse(byte[] imageAsBytes, HttpServletResponse response) throws IOException;
 
+	byte[] base64StringToByteArray(String base64String) throws IOException;
+
 }

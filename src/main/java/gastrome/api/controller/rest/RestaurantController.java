@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import gastrome.api.entities.Restaurant;
+import gastrome.api.entities.RestaurantJson;
 import gastrome.api.services.interfaces.RestaurantService;
 
 
@@ -31,6 +34,11 @@ public class RestaurantController {
 	@GetMapping(path= {"restaurant/{restaurantId}"})
 	public Restaurant getRestaurant(@PathVariable UUID restaurantId, HttpServletResponse response) throws IOException {
 		return restaurantService.getRestaurant(restaurantId, response);
+	}
+	
+	@PutMapping(path = {"restaurant/{restaurantId}"})
+	public Restaurant updateRestaurant(@PathVariable UUID restaurantId, HttpServletResponse response, @RequestBody RestaurantJson restaurantJson) throws IOException {
+		return restaurantService.updateRestaurant(restaurantId, response, restaurantJson);
 	}
 	
 }
