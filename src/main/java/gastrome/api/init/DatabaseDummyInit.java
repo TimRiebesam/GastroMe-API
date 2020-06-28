@@ -680,7 +680,6 @@ public class DatabaseDummyInit {
 		Tisch tisch4 = saveTisch(new Tisch("Tisch 4"), new Rechnung(), cafeSimple);
 		Tisch tisch5 = saveTisch(new Tisch("Tisch 5"), new Rechnung(), cafeSimple);
 		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), cafeSimple);
-		
 
 	}
 

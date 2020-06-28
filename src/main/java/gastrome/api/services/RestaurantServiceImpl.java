@@ -14,8 +14,8 @@ import gastrome.api.entities.PLZ;
 import gastrome.api.entities.Restaurant;
 import gastrome.api.entities.RestaurantJson;
 import gastrome.api.entities.Standort;
+import gastrome.api.entities.geocodexyz.GeocodeXyzApiResponse;
 import gastrome.api.entities.geonames.GeonamesNearbyPostalCodesResponse;
-import gastrome.api.entities.positionstack.PositionstackGeoApiData;
 import gastrome.api.repositories.PLZRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.StandortRepository;
@@ -100,27 +100,27 @@ public class RestaurantServiceImpl implements RestaurantService{
 			return null;
 		}
 		else {
-			PositionstackGeoApiData locationData = geoService.getGeodataFromAddress(
+			GeocodeXyzApiResponse locationData = geoService.getGeodataFromAddressXYZ(
 					Integer.parseInt(restaurantJson.getPlz()), restaurantJson.getStrasse(), restaurantJson.getHausnummer());
 			
-			if(locationData != null) {
-				restaurant.setName(restaurantJson.getName());
-				restaurant.setBeschreibung(restaurantJson.getBeschreibung());
-				restaurant.setEmail(restaurantJson.getEmail());
-				if(!restaurantJson.getBild().equals(""))
-					restaurant.setBild(imageService.base64StringToByteArray(restaurantJson.getBild()));
-				
+			restaurant.setName(restaurantJson.getName());
+			restaurant.setBeschreibung(restaurantJson.getBeschreibung());
+			restaurant.setEmail(restaurantJson.getEmail());
+			if(!restaurantJson.getBild().equals(""))
+				restaurant.setBild(imageService.base64StringToByteArray(restaurantJson.getBild()));
+			
+			if(locationData.getError() == null && locationData.getStandard().getPostal() == Integer.parseInt(restaurantJson.getPlz())) {
 				PLZ plz = restaurant.getStandort().getPlz();
-				plz.setPlz(Integer.parseInt(restaurantJson.getPlz()));
-				plz.setStadt(restaurantJson.getStadt());
+				plz.setPlz(locationData.getStandard().getPostal());
+				plz.setStadt(locationData.getStandard().getCity());
 				plzRepository.save(plz);
 				
 				Standort standort = restaurant.getStandort();
-				standort.setHausnummer("" + restaurantJson.getHausnummer());
-				standort.setStrasse(restaurantJson.getStrasse());
-				standort.setLaengengrad(locationData.getLongitude());
-				standort.setBreitengrad(locationData.getLatitude());
-				standort.setBeschreibung(locationData.getName() + "," + locationData.getPostal_code() + ", " + locationData.getRegion() + ", " + locationData.getCountry());
+				standort.setHausnummer(locationData.getStandard().getStnumber());
+				standort.setStrasse(locationData.getStandard().getAddresst());
+				standort.setLaengengrad(locationData.getLongt());
+				standort.setBreitengrad(locationData.getLatt());
+				standort.setBeschreibung(locationData.toString());
 				standort.setPlz(plz);
 				standortRepository.save(standort);
 				
