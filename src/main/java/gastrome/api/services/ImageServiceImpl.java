@@ -15,9 +15,10 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import sun.misc.BASE64Decoder;
-
 import gastrome.api.services.interfaces.ImageService;
+
+import java.util.Base64;
+import java.util.Base64.Decoder;
 
 @Service
 public class ImageServiceImpl implements ImageService{
@@ -106,9 +107,9 @@ public class ImageServiceImpl implements ImageService{
 		// create a buffered image
 		BufferedImage image = null;
 		byte[] imageByte;
-
-		BASE64Decoder decoder = new BASE64Decoder();
-		imageByte = decoder.decodeBuffer(imageString);
+		
+		Decoder decoder = Base64.getDecoder();
+		imageByte = decoder.decode(imageString);
 		ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
 		image = ImageIO.read(bis);
 		bis.close();
