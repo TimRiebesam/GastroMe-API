@@ -16,6 +16,8 @@ import gastrome.api.repositories.FeedbackRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.services.interfaces.FeedbackService;
 
+//Autor: Tim Bayer
+//Diese Klasse stellt den Rest Controller für die Feedback-Kommunikation bereit
 
 @RestController
 public class FeedbackController {
@@ -29,6 +31,10 @@ public class FeedbackController {
 	@Autowired
 	FeedbackService feedbackService;
 	
+	
+	//Funktionsweise: Hier wird eine Post-Request mit den Angaben für das Feedback als RequestParameter verarbeitet. Es wir ein neues Feedback Objekt erstellt und über den FeedbackService persistiert
+	//Übergabeparameter: Die RestaurantId zur Identifikation des betroffenen Restaurants, Kategorie und Anmerkung als Feedback-Bestandteil und die Standardmäßige HttpServletResponse
+	//Rückgabewert: Das erzeugte Feedback Objekt wird zur Kontrolle zurückgegeben
 	@PostMapping(path = {"feedback/add/"})
 	public Feedback addFeedback(@RequestParam String restaurantId, 
 			@RequestParam String kategorie, 

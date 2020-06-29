@@ -20,7 +20,8 @@ import gastrome.api.repositories.BewertungRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.services.interfaces.RezessionService;
 
-
+//Autor: Tim Bayer
+//Diese Klasse stellt den Rest Controller für die Rezession-Kommunikation bereit
 
 @RestController
 public class RezessionController {
@@ -34,7 +35,9 @@ public class RezessionController {
 	@Autowired
 	BewertungRepository bewertungRepository;
 	
-	//@PostMapping(path = {"rezession/add/{restaurantId}&{essen}&{atmosphaere}&{service}&{preise}&{sonderwuensche}&{anmerkung}"})
+	//Funktionsweise: Hier wird eine Post-Request mit den Angaben für eine externe Rezession als RequestParameter verarbeitet. Es wir ein neues Rezession Objekt erstellt und über den RezesisonService persistiert
+	//Übergabeparameter: Die RestaurantId zur Identifikation des betroffenen Restaurants, die Bewertung der 5 Kategorien sowie eine Anmerkung als Rezession-Bestandteil und die Standardmäßige HttpServletResponse
+	//Rückgabewert: Das erzeugte Rezession Objekt wird zur Kontrolle zurückgegeben
 	@PostMapping(path = {"rezession/add/"})
 	public Rezession addRezession(@RequestParam String restaurantId, 
 			@RequestParam String essen, 
