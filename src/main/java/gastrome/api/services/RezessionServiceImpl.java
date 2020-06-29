@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 import gastrome.api.entities.Rezession;
 import gastrome.api.repositories.RezessionRepository;
 import gastrome.api.services.interfaces.RezessionService;
-
+//Autor: Tim Bayer
+//Diese Klasse implementiert das RezessionService-Interface mit den unimplementierten Methoden
 @Service
 public class RezessionServiceImpl implements RezessionService {
 
@@ -20,12 +21,13 @@ public class RezessionServiceImpl implements RezessionService {
 	RezessionRepository rezessionRepository;
 	
 
+	//Funktionsweise: Es wird eine Rezession übergeben, dieses wird über das Repository persistiert und zu Kontrollzwecken zurückgeliefert
 	@Override
 	public Rezession addRezession(Rezession rezession, HttpServletResponse response) throws IOException {
 	   return rezessionRepository.save(rezession);
 	}
 
-
+	//Funktionsweise: Es werden alle Rezessionen eines Restaurants anhand der RestaurantId zurückgeliefert
 	@Override
 	public List<Rezession> getRezessionenByRestaurantId(UUID restaurantID, HttpServletResponse response)
 			throws IOException {

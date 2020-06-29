@@ -13,6 +13,9 @@ import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.SpeisekarteRepository;
 import gastrome.api.services.interfaces.SpeisekarteService;
 
+//Autor: Tim Bayer
+//Diese Klasse implementiert das SpeisekarteService-Interface mit den unimplementierten Methoden
+
 @Service
 public class SpeisekarteServiceImpl implements SpeisekarteService{
 	
@@ -22,6 +25,7 @@ public class SpeisekarteServiceImpl implements SpeisekarteService{
 	@Autowired
 	RestaurantRepository restaurantRepository;
 	
+	//Funktionsweise: Es wird die Speisekarte anhand der SpeisekarteId beschafft und zurückgeliefert
 	@Override
 	public Speisekarte getSpeisekarte(UUID speisekarteId, HttpServletResponse response) throws IOException{
 		Speisekarte speisekarte = speisekarteRepository.findById(speisekarteId).orElse(null);
@@ -31,6 +35,7 @@ public class SpeisekarteServiceImpl implements SpeisekarteService{
 		return speisekarte;
 	}
 
+	//Funktionsweise: Es wird die Speisekarte eines Restaurants anhand der RestaurantId beschafft und zurückgeliefert
 	@Override
 	public Speisekarte getSpeisekarteByRestaurantId(UUID restaurantID, HttpServletResponse response) throws IOException {
 		Speisekarte speisekarte = speisekarteRepository.getSpeisekarteByRestaurantId(restaurantID);
