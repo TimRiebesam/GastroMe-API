@@ -14,9 +14,6 @@ public class GeoServiceImpl implements GeoService{
 	@Value("${gastrome.config.geo.geonames-api-path-nearbyPostalCodes}")
 	private String defaultNearbyPostalCodesApiPath;
 	
-	@Value("${gastrome.config.geo.positionstack-api-path-geocoding}")
-	private String defaultGeocodingApiPath;
-	
 	@Value("${gastrome.config.geo.geocodexyz-api-path-geocoding}")
 	private String defaultGeocodingXyzApiPath;
 
