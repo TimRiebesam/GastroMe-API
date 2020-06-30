@@ -9,6 +9,8 @@ import gastrome.api.entities.Getraenk;
 import gastrome.api.repositories.GetraenkRepository;
 import gastrome.api.services.interfaces.GetraenkService;
 
+//Autor: Tim Riebesam
+//Diese Klasse implementiert das GetraenkService-Interface mit den unimplementierten Methoden
 
 @Service
 public class GetraenkServiceImpl implements GetraenkService{
@@ -16,6 +18,7 @@ public class GetraenkServiceImpl implements GetraenkService{
 	@Autowired
 	GetraenkRepository getraenkRepository;
 	
+	//Funktionsweise: Es wird über das getraenkRepository das Getränk zur entspechenden übergebenen UUID gesucht und wenn es gefunden wurde, wird das Bild des Getränks zurückgegeben.
 	@Override
 	public byte[] getBild(UUID getraenkId) {
 		Getraenk getraenk = getraenkRepository.findById(getraenkId).orElse(null);

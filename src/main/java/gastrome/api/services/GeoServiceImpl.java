@@ -8,6 +8,9 @@ import gastrome.api.entities.geocodexyz.GeocodeXyzApiResponse;
 import gastrome.api.entities.geonames.GeonamesNearbyPostalCodesResponse;
 import gastrome.api.services.interfaces.GeoService;
 
+//Autor: Tim Riebesam
+//Diese Klasse implementiert das GeoService-Interface mit den unimplementierten Methoden
+
 @Service
 public class GeoServiceImpl implements GeoService{
 	
@@ -19,11 +22,13 @@ public class GeoServiceImpl implements GeoService{
 
 	RestTemplate restTemplate = new RestTemplate();
 	
+	//Funktionsweise: Es wird eine Get-Anfrage an die API von geonames.org gesendet, welche aus den übergebenen Parametern erstellt wird. Rückgabewert ist ein GeonamesNearbyPostalCodesResponse. 
 	@Override
 	public GeonamesNearbyPostalCodesResponse getNearbyPostalCodesByLatAndLng(double lat, double lng) {
 		return restTemplate.getForObject(defaultNearbyPostalCodesApiPath+"&lat="+lat+"&lng="+lng, GeonamesNearbyPostalCodesResponse.class);
 	}
 	
+	//Funktionsweise: Es wird eine Get-Anfrage an die API von geocode.xyz gesendet, welche aus den übergebenen Parametern erstellt wird. Rückgabewert ist ein GeocodeXyzApiResponse. 
 	@Override
 	public GeocodeXyzApiResponse getGeodataFromAddressXYZ(int plz, String strasse, int hausnummer) {
 		return restTemplate.getForObject(

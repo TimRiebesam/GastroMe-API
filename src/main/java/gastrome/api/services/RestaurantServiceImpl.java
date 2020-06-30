@@ -23,6 +23,9 @@ import gastrome.api.services.interfaces.GeoService;
 import gastrome.api.services.interfaces.ImageService;
 import gastrome.api.services.interfaces.RestaurantService;
 
+//Autor: Tim Riebesam
+//Diese Klasse implementiert das RestaurantService-Interface mit den unimplementierten Methoden
+
 @Service
 public class RestaurantServiceImpl implements RestaurantService{
 
@@ -41,6 +44,12 @@ public class RestaurantServiceImpl implements RestaurantService{
 	@Autowired
 	ImageService imageService;
 	
+	//Übergabeparameter: Übergeben wird ein HttpServletResponse und Längen- und Breitengrad (lat, lng)
+	//Funktionsweise: Wenn die beiden Variablen lat und lng null sind, werden alle Restaurants aus der Datenbank geladen. Fall keine existieren ein 404 HTTP-Error zurückgegeben.
+	// Wenn nur einer der beiden lat/lng Parameter übergeben wird, wird dem response ein 400 HTTP-Error hinzugefügt.
+	// Wenn beide Parameter (lat/lng) übergeben werden, ruft die Methoden getRestaurantsNearby auf.
+	//Rückgabewert: Die Methode gibt eine Liste von Restaurants zurück. Der Inhalt ist von den übergebenen Parametern abhängig.
+	//Errorhandling: HTTP-Error mit entsprechender Fehlermeldung und Code.
 	@Override
 	public List<Restaurant> getAllRestaurants(HttpServletResponse response, Double lat, Double lng) throws IOException {
 		if(lat != null && lng != null) {
@@ -62,6 +71,11 @@ public class RestaurantServiceImpl implements RestaurantService{
 		}
 	}
 
+	//Übergabeparameter: Übergeben werden Längen- und Breitengrad (lat, lng)
+	//Funktionsweise: Es wird eine Anfrage an die geoname.org API gesendet. Die Anfrage beinhaltet längen- und breitengrad. Die API sendet im Response eine Liste von Postleitzahlen, die sich im 30km Umkreis der Koordinaten befinden.
+	// Über das plzRepository werden alle PLZ-Objekte aus der Datenbank mit entsprechendem plz-Attribut geladen.
+	// Für jedes geladenen PLZ-Objekt wird jeder einzelne Standort geprüft, von welchem jedes Restaurant geladen wird und einer Liste hinzugefügt wird.
+	//Rückgabewert: Die Liste der Restaurants wird zurückgegeben.
 	private List<Restaurant> getRestaurantsNearby(Double lat, Double lng) {
 		List<Restaurant> restaurants = new ArrayList<Restaurant>();
 		
@@ -83,6 +97,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 		return restaurants;
 	}
 
+	//Funktionsweise: Lädt Restaurant über ID und restaurantRepository aus Datenbank und gibt dieses zurück. Andernfalls HTTP-Error 404
 	@Override
 	public Restaurant getRestaurant(UUID restaurantId, HttpServletResponse response) throws IOException {
 		Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
@@ -92,6 +107,14 @@ public class RestaurantServiceImpl implements RestaurantService{
 		return restaurant;
 	}
 
+	//Übergabeparameter: Übergeben wird eine Restaurant-ID, ein RestaurantJson-Objekt und ein HttpServletResponse
+	//Funktionsweise: Diese Methode aktualisiert/ändert die Daten eine Restaurants. Hierzu wird das Restaurant über die Restaurant-Id und das restaurantRepository aus der Datenbank geladen.
+	// Das RestaurantJson-Objekt beinhaltet die geänderten Daten des Restaurants. Daten die das Restaurant-Objekt selbst betreffen (name, beschriftung, email und bild) werden direkt geändert.
+	// Über den geoService und die neue adresse (plz, strasse und hausnummer), werden der Längen- und Breitengrad ermittelt. Ist das Ergebnis erfolgreich und die richtigen Geodaten konnten geladen werden,
+	// werden das Standort-Objekt und das PLZ-Objekt des Restaurants aktualisiert. Anschließend wird das Restaurant gespeichert.
+	//Rückgabewert: Das gespeicherte Restaurant wird zurückgegeben.
+	//Errorhandling: Wenn kein Restaurant gefunden wurde, wird ein 404 HTTP-Error zurückgegeben.
+	// Wenn keine Geodaten zu der Adresse gefunden wurden, wird ein 400 HTTP-Error zurückgebgen.
 	@Override
 	public Restaurant updateRestaurant(UUID restaurantId, HttpServletResponse response, RestaurantJson restaurantJson) throws IOException {
 		Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);

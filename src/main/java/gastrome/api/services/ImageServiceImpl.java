@@ -20,18 +20,25 @@ import gastrome.api.services.interfaces.ImageService;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 
+//Autor: Tim Riebesam 
+//(Orientierungshilfen für die Methoden scaleImage, cropImage und base64StringToByteArray nicht wieder gefunden. Quelle war StackOverflow)
+//Diese Klasse implementiert das ImageService-Interface mit den unimplementierten Methoden
+
 @Service
 public class ImageServiceImpl implements ImageService{
 	
 	@Value("${gastrome.config.images.scaledWidth}")
     private int scaledWidth;
 	
+	//Funktionsweise: Diese Methode wandelt einen InputStream in ein BufferedImage um und wandelt anschließend den InputStream über die Methode compressJpgImageReturnAsByteArray in ein byte-Array um.
 	@Override
-	public byte[] compressJpgImageReturnAsByteArray(InputStream isChickenBagel) throws IOException {
-		BufferedImage img = ImageIO.read(isChickenBagel);
+	public byte[] compressJpgImageReturnAsByteArray(InputStream is) throws IOException {
+		BufferedImage img = ImageIO.read(is);
 		return compressJpgImageReturnAsByteArray(img);
 	}
 
+	//Funktionsweise: Diese Methode wandelt ein BufferedImage in ein Byte-Array um.
+	// Bevor das Bild als Byte-Array zurückgegeben wird, wird es durch die Methoden cropImage und scaleImage komprimiert und auf eine definierte Höhe und Breite zugeschnitten.
 	@Override
 	public byte[] compressJpgImageReturnAsByteArray(BufferedImage img) throws IOException {
 		BufferedImage compressedImg = cropImage(img);
@@ -43,6 +50,7 @@ public class ImageServiceImpl implements ImageService{
 		return baos.toByteArray();
 	}
 	
+	//Funktionsweise: Diese Methode erzeugt aus einem BufferedImage eine Kopie, mit vordefinierter Höhe und Breite, welche anschließend zurückgegeben wird.
 	private BufferedImage scaleImage(BufferedImage originalImage) {
 		// Höhe -1: If either width or height is a negative number then a value is substituted to maintain the aspect ratio of the original image dimensions.
 		Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledWidth, Image.SCALE_SMOOTH);
@@ -55,6 +63,7 @@ public class ImageServiceImpl implements ImageService{
 		return outImg;
 	}
 	
+	//Funktionsweise: Diese Methode erzeugt aus einem BufferedImage eine Kopie, die ein Quadrat aus der Mitte des Bildes ist. Die Kopie wird anschließend zurückgegeben.
 	private BufferedImage cropImage(BufferedImage originalImage) {
         int height = originalImage.getHeight();
         int width = originalImage.getWidth();
@@ -87,6 +96,7 @@ public class ImageServiceImpl implements ImageService{
         return croppedImage;
 	}
 	
+	//Funktionsweise: Diese Methode fügt einem HttpServletResponse ein byteArray hinzu, welches eine Datei darstellt.
 	@Override
 	public void addImageToResponse(byte[] imageAsBytes, HttpServletResponse response) throws IOException {
 		if(imageAsBytes != null) {
@@ -99,6 +109,7 @@ public class ImageServiceImpl implements ImageService{
 		}
 	}
 	
+	//Funktionsweise: Diese Methode wandelt einen base64String (der Daten eines Bildes enthält) in ein Byte-Array um. Verwendet wird hierzu ein Base64-Decoder und die Methode compressJpgImageReturnAsByteArray
 	@Override
 	public byte[] base64StringToByteArray(String base64String) throws IOException {
 		String[] parts = base64String.split(",");

@@ -25,6 +25,10 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import gastrome.api.services.interfaces.QrCodeService;
 
+//Autor: Daniel Sachse (Quelle: https://gist.github.com/wombat/8825038)
+//Leichte Änderungen von Tim Riebesam
+//Diese Klasse implementiert das QrCodeService-Interface mit den unimplementierten Methoden
+
 @Service
 public class QrCodeServiceImpl implements QrCodeService {
 
@@ -37,6 +41,9 @@ public class QrCodeServiceImpl implements QrCodeService {
 	@Value("${gastrome.config.qr.width}")
     private int width;
 
+	//Funktionsweise: Diese Methode erstellt aus einen übergebenen String ein QR-Code mit einem Overlay-Bild/Logo in der Mitte des Codes. Farben sind Orange-Weiß.
+	// Durch die Variable sw=true wird ein QR-Code in Schwarz-Weiß und ohne Logo in der Mitte erzeugt.
+	// Für genauere Infos siehe Kommentare innerhalb der Methode
 	@Override
     public byte[] generate(String content, boolean sw) throws Exception {
         // Create new configuration that specifies the error correction

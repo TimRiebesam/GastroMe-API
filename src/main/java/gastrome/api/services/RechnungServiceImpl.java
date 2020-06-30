@@ -16,6 +16,9 @@ import gastrome.api.repositories.RechnungRepository;
 import gastrome.api.repositories.SpeiseRepository;
 import gastrome.api.services.interfaces.RechnungService;
 
+//Autor: Tim Riebesam
+//Diese Klasse implementiert das RechnungService-Interface mit den unimplementierten Methoden
+
 @Service
 public class RechnungServiceImpl implements RechnungService{
 
@@ -31,6 +34,10 @@ public class RechnungServiceImpl implements RechnungService{
 	@Autowired
 	GetraenkOrderRepository getraenkOrderRepository;
 	
+	//Übergabeparameter: Übergeben werden eine Rechnung-Id, eine Speise-ID und ein HttpServletResponse
+	//Funktionsweise: Diese Methode holt über das rechnungRepository eine Rechnung. der Rechnung wird anschließend über das speiseRepository und die Speise-ID eine Speise hinzugefügt. anschließend wird die Rechnung gespeichert.
+	//Rückgabewert: Rückgabewert ist die gespeicherte Rechnung
+	//Errorhandling: Bei einem Fehler wird dem Response ein HTTP-Error 400 hinzugefügt.
 	@Override
 	public Rechnung addSpeise(UUID rechnungId, UUID speiseId, HttpServletResponse response) throws IOException {
 		try {
@@ -43,6 +50,7 @@ public class RechnungServiceImpl implements RechnungService{
 		}
 	}
 	
+	//Siehe oben nur mit Getränk statt Speise
 	@Override
 	public Rechnung addGetraenk(UUID rechnungId, UUID getraenkId, HttpServletResponse response) throws IOException {
 		try {
@@ -55,6 +63,7 @@ public class RechnungServiceImpl implements RechnungService{
 		}
 	}
 
+	//Siehe oben, nur wird eine Rechnung auf bezahlt gesetzt
 	@Override
 	public Rechnung payRechnung(UUID rechnungId, HttpServletResponse response) throws IOException {
 		try {
@@ -67,6 +76,7 @@ public class RechnungServiceImpl implements RechnungService{
 		}
 	}
 
+	//Siehe oben, nur wird eine Bestellung auf ausgeliefert gesetzt
 	@Override
 	public GetraenkOrder acceptOrder(UUID getraenkOrderId, HttpServletResponse response) throws IOException {
 		try {
