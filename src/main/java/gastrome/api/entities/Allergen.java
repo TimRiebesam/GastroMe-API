@@ -18,6 +18,9 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+// Autor: Tim Riebesam
+// Diese Klasse beschreibt ein Allergen. Allergene können in Essen und Getränken vorhanden sein. Ein Allergen hat einen Namen, eine Bezeichnung und ein Symbol (Bild)
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Allergen {

@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse beschreibt einen Tisch. An einem Tisch können Gäste sitzen und er ist Teil eines Restaurants. Ein Tisch besitzt eine nummer und eine Beschreibung. Außerdem kann durch ein Flag gekennzeichnet werden, dass ein Kellner gerufen wurde.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Tisch {
@@ -87,14 +90,6 @@ public class Tisch {
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
-
-	/*public boolean isBesetzt() {
-		return besetzt;
-	}
-
-	public void setBesetzt(boolean besetzt) {
-		this.besetzt = besetzt;
-	}*/
 
 	public Restaurant getRestaurant() {
 		return restaurant;

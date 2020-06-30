@@ -15,6 +15,9 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//Autor: Tim Bayer
+//Diese Klasse beschreibt ein Feedback. Feedback kann direkt vom Gast über die App abgegeben werden. Ein Feedback gehört immer zu einem Restaurant und besitzt eine kategorie und eine Anmerkung
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Feedback {

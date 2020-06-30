@@ -23,6 +23,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt eine Rechnung. Eine Rechnung ist einem Tisch zugeordnet. Sie besitzt Speisen und GetraenkOrders. Außerdem ist sie mit einem Zeitstempel und einem Flag ob die Rechnung bezahlt ist versehen.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Rechnung {

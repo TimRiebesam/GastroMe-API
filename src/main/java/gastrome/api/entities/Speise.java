@@ -20,6 +20,9 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse beschreibt eine Speise. Eine Speise ist ein SpeisekartenItem und kann Teil einer Speisekarte sein. Es besitzt Allergene. Außerdem kann es Teil einer Rechnung sein.
+
 @Entity
 public class Speise extends SpeisekartenItem{
 

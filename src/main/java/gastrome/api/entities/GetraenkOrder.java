@@ -16,6 +16,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt eine GetraenkOrder. Eine GetraenkOrder besitzt ein Getränk und eine Rechnung. Über dieses Objekt wird eine Beziehung zwischen den beiden anderen objekten hergestellt. Außerdem besitzt eine GetraenkOrder das Attribut ausgeliefert
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class GetraenkOrder {

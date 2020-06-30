@@ -15,6 +15,9 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//Autor: Tim Bayer
+//Diese Klasse beschreibt einen Gast. Ein Gast kann an einem Tisch platz nehmen. Weitere Informationen werden derzeit nicht über einen Gast gespeichert.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Gast {

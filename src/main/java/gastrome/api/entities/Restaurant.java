@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse beschreibt ein Restaurant. Ein Restaurant befindet sich an einem Standort, besitzt Rezessionen, Feebacks, Tische und eine Speisekarte. Weiter hat ein Restaurant einen Namen, eine Beschreibung, eine E-MailAdresse und ein Titelbild.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Restaurant {

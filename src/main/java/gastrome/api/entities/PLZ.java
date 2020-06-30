@@ -17,6 +17,9 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt eine Postleitzahl. Innerhalb einer Postleitzahl können sich viele Standorte befinden. Der Wert der Postleitzahl ist in Form des Attributs plz gespeichert. Außerdem kann die stadt angegeben werden.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PLZ {

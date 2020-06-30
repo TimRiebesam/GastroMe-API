@@ -1,5 +1,8 @@
 package gastrome.api.entities;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt ein Restaurant. Diese Klasse wird verwendet um einfache Daten im JSON-Format auszutauschen.
+
 public class RestaurantJson {
 
 	private String name;

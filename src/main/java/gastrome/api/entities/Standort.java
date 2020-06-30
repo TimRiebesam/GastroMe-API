@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt einen Standort. Er befindet sich innerhalb eines PLZ-Gebiets und es kann sich ein Restaurant an einem Standort befinden. Außerdem besitzt ein Standort eine starße, eine hausnummer, einen längen- und breitengrad und eine beschreibung.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Standort {

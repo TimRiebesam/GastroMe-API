@@ -10,6 +10,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+// Autor: Tim Riebesam
+// Diese Klasse ist Teil der Security Konfiguration. Sie beinhaltet einen CorsFilter (Cross-Origin Resource Sharing, insbesondere für das HTML/JS-Dashbaord notwendig, da andernfalls Anfragen scheitern. 
+//  Für mehr Informationen: https://javascript.info/fetch-crossorigin). 
+
 @Configuration
 public class OriginFilter {
 	

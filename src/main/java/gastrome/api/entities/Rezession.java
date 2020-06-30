@@ -18,6 +18,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse beschreibt eine Rezession. Eine Rezession ist einem Restaurant zugeordnet und besitzt eine Bewertung, sowie eine Anmekrung.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Rezession {

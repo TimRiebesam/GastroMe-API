@@ -15,6 +15,9 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt eine Bewertung. Eine Bewertung ist Teil einer Rezession. Es können die Kategorien essen, atmosphaere, service, preise und sonderwünsche bewertet werden.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Bewertung {

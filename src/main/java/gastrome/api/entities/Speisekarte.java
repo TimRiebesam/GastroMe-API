@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam
+//Diese Klasse beschreibt eine Speisekarte. Eine Speisekarte ist Teil eines Restaurant. Es besitzt Speisen und Getränke.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Speisekarte {

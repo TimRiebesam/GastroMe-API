@@ -22,6 +22,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse beschreibt ein Getränk. Ein Getränk ist ein SpeisekartenItem und kann Teil einer Speisekarte sein. Es besitzt Allergene. Außerdem kann es Teil einer GetraenkOrder sein.
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Getraenk extends SpeisekartenItem{

@@ -15,6 +15,9 @@ import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse beschreibt ein SpeisekartenItem. Es besitzt einen Namen, eine beschreibung, eine Erläuterung, einen Preis, ein Titelbild und eine Kennzeichnung ob es Vegie und/oder vegan ist.
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
