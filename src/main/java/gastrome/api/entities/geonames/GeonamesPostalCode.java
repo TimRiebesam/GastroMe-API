@@ -1,5 +1,9 @@
 package gastrome.api.entities.geonames;
 
+//Autor: Tim Riebesam
+//Diese Klasse stellt einen Teil des Response einer HTTP-Anfrage an die geonames.org API dar.
+//Für Details: https://www.geonames.org/export/web-services.html#findNearbyPostalCodes
+
 public class GeonamesPostalCode {
 
 	private String adminCode1;

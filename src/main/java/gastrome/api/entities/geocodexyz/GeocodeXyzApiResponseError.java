@@ -1,5 +1,9 @@
 package gastrome.api.entities.geocodexyz;
 
+//Autor: Tim Riebesam
+//Diese Klasse stellt einen Teil der Response einer HTTP-Anfrage an die geocodexyz.com API dar.
+//Für Details: https://geocode.xyz/api
+
 public class GeocodeXyzApiResponseError {
 
 	private String description;

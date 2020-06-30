@@ -40,6 +40,10 @@ import gastrome.api.repositories.StandortRepository;
 import gastrome.api.repositories.TischRepository;
 import gastrome.api.services.interfaces.ImageService;
 
+//Autor: Tim Riebesam, Tim Bayer
+//Diese Klasse erzeugt das Datenbankschema und schreibt die DummyDaten der Anwendung in die Datenbank.
+//Erzeugt werden die Allergene, sechs Restaurants (drei "Nachbildungen", ein testobjekt und zwei "leere")
+
 @Component
 public class DatabaseDummyInit {
 
@@ -95,7 +99,8 @@ public class DatabaseDummyInit {
 	Allergen lupinen;
 	Allergen weichtiere;
 	
-
+	//Funktionsweise: durch @PostConstruct wird diese Methode aufgerufen sobald die Anwendung startet, bzw. noch bevor der Webserver startet.
+	//Über Methodenaufrufe wird die Datenbank vollständig geleert, Allergene neu erzeugt und die Datenbank mit DummyDaten befüllt.
 	@PostConstruct
 	public void loadDummyDataIntoDatabase() throws IOException {
 		System.out.println("DB wird gelöscht...");
@@ -106,6 +111,7 @@ public class DatabaseDummyInit {
 		fillDatabaseWithInitData();
 	}
 
+	//Funktionsweise: Es werden über die Repositories alle Daten aus der Datenkbank gelöscht.
 	private void clearDatabase() {
 		allergenRepository.deleteAll();
 		bewertungRepository.deleteAll();
@@ -118,6 +124,7 @@ public class DatabaseDummyInit {
 		standortRepository.deleteAll();
 	}
 	
+	//Funktionsweise: Es werden gängige Allergene erzeugt und in der Datenbank gespeichert.
 	private void addAllergene() {
 		gluten = allergenRepository.save(new Allergen("Glutenhaltiges Getreide", "(Weizen, Dinkel, Roggen, Gerste, Hafer oder Hybridstämme davon)", null));
 		krebstiere = allergenRepository.save(new Allergen("Krebstiere", "", null));
@@ -135,6 +142,7 @@ public class DatabaseDummyInit {
 		weichtiere = allergenRepository.save(new Allergen("Weichtiere", "", null));
 	}
 	
+	//Funktionsweise: Es werden Restaurants erzeugt und ind er Datenbank gespeichert.
 	private void fillDatabaseWithInitData() throws IOException {
 		addCafePalaver();
 		addCafePerlbohne();
@@ -151,6 +159,9 @@ public class DatabaseDummyInit {
 		addCafeSimple();
 	}
 	
+	//Funktionsweise: Aus dem ordner src/main/resources/static/img wird ein Bild geladen und mithilfe des imageService in ein ByteArray umgewandelt.
+	//Übergabeparameter: Übergeben wird der Name des Bildes, welches umgewandelt werden soll.
+	//Rückgabewert: Ist ein Bild in Form eines ByteArrays
 	private byte[] loadImageFromResources(String imagePath) throws IOException {
 		Resource resource = new ClassPathResource("static/img/" + imagePath + ".jpg");
 		InputStream is = resource.getInputStream();
@@ -159,6 +170,9 @@ public class DatabaseDummyInit {
 		return null;
 	}
 	
+	//Funktionsweise: Aus dem ordner src/main/resources/static/text wird ein Textfile geladen und in einen String umgewandelt.
+	//Übergabeparameter: Übergeben wird der Name des Textfiles, welches umgewandelt werden soll.
+	//Rückgabewert: Ist der Inhalt eines Textfiles in Form eines Strings.
 	private String loadTextFromResources(String txtPath) throws IOException {
 		Resource resource = new ClassPathResource("static/text/" + txtPath + ".txt");
 		InputStream is = resource.getInputStream();
@@ -176,11 +190,13 @@ public class DatabaseDummyInit {
 		return null;
 	}
 	
+	//Speichert ein Restaurant mithilfe des restaurantRepository in der Datenbank. Übergeben wird ein Restaurant und ein Pfad zu ein Bildname. Rückgabe ist das gespeicherte Restaurant.
 	private Restaurant saveRestaurant(Restaurant restaurant, String resourcePath) throws IOException {
 		restaurant.setBild(loadImageFromResources(resourcePath));
 		return restaurantRepository.save(restaurant);
 	}
 	
+	//Speichert einen Standort mithilfe des standortRepository in der Datenbank. Übergeben wird ein Standort, ein PLZ-Objekt und ein Restaurant. Rückgabe ist der gespeicherte Standort.
 	private Standort saveStandort(Standort standort, PLZ plz, Restaurant restaurant) {
 		plz = plzRepository.save(plz);
 		standort.setPlz(plz);
@@ -188,18 +204,21 @@ public class DatabaseDummyInit {
 		return standortRepository.save(standort);
 	}
 	
+	//Speichert eine Speisekarte mithilfe des speisekarteRepository in der Datenbank. Übergeben wird eine Speisekarte und ein Restaurant. Rückgabe ist die gespeicherte Speisekarte.
 	private Speisekarte saveSpeisekarte(Speisekarte speisekarte, Restaurant restaurant) {
 		speisekarteRepository.save(speisekarte);
 		speisekarte.setRestaurant(restaurant);
 		return speisekarteRepository.save(speisekarte);
 	}
 	
+	//Ändert eine Speisekarte mithilfe des speisekarteRepository in der Datenbank. Übergeben wird eine Speisekarte und Getränke und Speisen. Rückgabe ist die gespeicherte Speisekarte.
 	private Speisekarte updateSpeisekarte(Speisekarte speisekarte, ArrayList<Getraenk> getraenke, ArrayList<Speise> speisen) {
 		speisekarte.setSpeisen(speisen);
 		speisekarte.setGetraenke(getraenke);
 		return speisekarteRepository.save(speisekarte);
 	}
 	
+	//Speichert eine Speise mithilfe des speiseRepository in der Datenbank. Übergeben wird eine Speise, eine Speisekarte, der Pfad zum bild der Speise und die Allergene. Rückgabe ist die gespeicherte Speise.
 	private Speise saveSpeise(Speise speise, Speisekarte speisekarte, String resourcePath, List<Allergen> allergene) throws IOException {
 		speise.setSpeisekarte(speisekarte);
 		speise.setBild(loadImageFromResources(resourcePath));
@@ -208,6 +227,7 @@ public class DatabaseDummyInit {
 		return speiseRepository.save(speise);
 	}
 	
+	//Speichert ein Getränk mithilfe des getraenkRepository in der Datenbank. Übergeben wird ein Getränk, eine Speisekarte, der Pfad zum bild des Getränks und die Allergene. Rückgabe ist das gespeicherte Getränk.
 	private Getraenk saveGetraenk(Getraenk getraenk, Speisekarte speisekarte, String resourcePath, List<Allergen> allergene) throws IOException {
 		getraenk.setSpeisekarte(speisekarte);
 		getraenk.setBild(loadImageFromResources(resourcePath));
@@ -216,7 +236,7 @@ public class DatabaseDummyInit {
 		return getraenkRepository.save(getraenk);
 	}
 	
-	
+	//Speichert eine Bewertung mithilfe des bewertungRepository in der Datenbank. Übergeben wird eine Bewertung, eine Rezession und ein Restaurant. Rückgabe ist die gespeicherte Rezession.
 	private Bewertung saveBewertung(Bewertung bewertung, Rezession rezession, Restaurant restaurant) {
 		bewertung = bewertungRepository.save(bewertung);
 		bewertung.setRezession(rezession);
@@ -225,11 +245,13 @@ public class DatabaseDummyInit {
 		return bewertungRepository.save(bewertung);
 	}
 	
+	//Speichert einen Tisch mithilfe des tischRepository in der Datenbank. Übergeben wird ein Tisch, eine Rechnung und ein Restaurant. Rückgabe ist der gespeicherte Tisch.
 	private Tisch saveTisch(Tisch tisch, Rechnung rechnung, Restaurant restaurant) throws IOException {
 		tisch.setRestaurant(restaurant);
 		return tischRepository.save(tisch);
 	}
 
+	//Erstellt ein Abbild des Cafe Palaver in Karlsruhe und speichert dieses in der Datenbank
 	private void addCafePalaver() throws IOException {
 		Restaurant cafePalaver = saveRestaurant(
 				new Restaurant("café palaver", loadTextFromResources("restaurants/palaver"), "GastroMeWaiterTim@gmail.com"),
@@ -355,6 +377,7 @@ public class DatabaseDummyInit {
 		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), cafePalaver);
 	}
 	
+	//Erstellt ein Abbild des Cafe Perlbohne in Karlsruhe und speichert dieses in der Datenbank
 	private void addCafePerlbohne() throws IOException {
 		Restaurant cafePerlbohne = saveRestaurant(
 				new Restaurant("Perlbohne", loadTextFromResources("restaurants/perlbohne"), "GastroMeWaiterTim@gmail.com"),
@@ -456,6 +479,7 @@ public class DatabaseDummyInit {
 		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), cafePerlbohne);
 	}
 	
+	//Erstellt ein Abbild des Oxford Pub in Karlsruhe und speichert dieses in der Datenbank
 	private void addOxfordPub() throws IOException {
 		Restaurant oxfordPub = saveRestaurant(
 				new Restaurant("Oxford Pub", loadTextFromResources("restaurants/oxford"), "GastroMeWaiterTim@gmail.com"),
@@ -569,6 +593,7 @@ public class DatabaseDummyInit {
 		Tisch tisch6 = saveTisch(new Tisch("Tisch 6"), new Rechnung(), oxfordPub);
 	}
 
+	//Erstellt ein Abbild eines fiktiven Cafes und speichert dieses in der Datenbank
 	private void addCafeSimple() throws IOException {
 		Restaurant cafeSimple = saveRestaurant(
 				new Restaurant("Café Simple", loadTextFromResources("restaurants/cafeSimple"),"CafeSimpleKarlsruhe@gmail.com"),

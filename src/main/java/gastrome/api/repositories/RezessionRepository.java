@@ -10,6 +10,7 @@ import gastrome.api.entities.Rezession;
 //Diese Klasse implementiert das JPA Repository für Rezessions-Objekte
 public interface RezessionRepository extends JpaRepository<Rezession, UUID> {
 	
+	//Funktionsweise: findet alle Rezessionen eines Restaurants
 	public List<Rezession> getRezessionsByRestaurantId(UUID restaurantId);
 
 }
