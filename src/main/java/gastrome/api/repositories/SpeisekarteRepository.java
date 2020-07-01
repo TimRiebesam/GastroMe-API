@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import gastrome.api.entities.Speisekarte;
-//Autor: Tim Bayer
+//Autor: Tim Bayer, Tim Riebesam
 //Diese Klasse implementiert das JPA Repository für Speisekarte-Objekte
 public interface SpeisekarteRepository extends JpaRepository<Speisekarte, UUID> {
 	

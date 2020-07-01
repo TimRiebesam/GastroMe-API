@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import gastrome.api.entities.Rezession;
-//Autor: Tim Bayer
+//Autor: Tim Bayer, Tim Riebesam
 //Diese Klasse implementiert das JPA Repository für Rezessions-Objekte
 public interface RezessionRepository extends JpaRepository<Rezession, UUID> {
 	

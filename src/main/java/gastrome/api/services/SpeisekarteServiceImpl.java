@@ -13,7 +13,7 @@ import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.repositories.SpeisekarteRepository;
 import gastrome.api.services.interfaces.SpeisekarteService;
 
-//Autor: Tim Bayer
+//Autor: Tim Bayer, Tim Riebesam
 //Diese Klasse implementiert das SpeisekarteService-Interface mit den unimplementierten Methoden
 
 @Service

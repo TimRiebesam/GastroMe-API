@@ -20,7 +20,7 @@ import gastrome.api.repositories.BewertungRepository;
 import gastrome.api.repositories.RestaurantRepository;
 import gastrome.api.services.interfaces.RezessionService;
 
-//Autor: Tim Bayer
+//Autor: Tim Bayer, Tim Riebesam
 //Diese Klasse stellt den Rest Controller für die Rezession-Kommunikation bereit
 
 @RestController

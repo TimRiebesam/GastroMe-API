@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import gastrome.api.entities.Rezession;
 import gastrome.api.repositories.RezessionRepository;
 import gastrome.api.services.interfaces.RezessionService;
-//Autor: Tim Bayer
+//Autor: Tim Bayer, Tim Riebesam
 //Diese Klasse implementiert das RezessionService-Interface mit den unimplementierten Methoden
 @Service
 public class RezessionServiceImpl implements RezessionService {
